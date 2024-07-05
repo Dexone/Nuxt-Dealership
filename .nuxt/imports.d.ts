@@ -29,6 +29,5 @@ export { withCtx, withDirectives, withKeys, withMemo, withModifiers, withScopeId
 export { injectHead, useHead, useSeoMeta, useHeadSafe, useServerHead, useServerSeoMeta, useServerHeadSafe } from '@unhead/vue';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/.pnpm/@pinia+nuxt@0.5.1_magicast@0.3.4_rollup@4.18.0_vue@3.4.31/node_modules/@pinia/nuxt/dist/runtime/composables';
 export { persistedState } from '../node_modules/.pnpm/@pinia-plugin-persistedstate+nuxt@1.2.1_@pinia+nuxt@0.5.1_magicast@0.3.4_rollup@4.18.0_vue@3._4jfnhcnhe6qj55avr5da37wlfe/node_modules/@pinia-plugin-persistedstate/nuxt/dist/runtime/storages';
-export { useNuxtDevTools } from '../node_modules/.pnpm/@nuxt+devtools@1.3.9_rollup@4.18.0_vite@5.3.3_@types+node@20.14.9_terser@5.31.1_/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
 export { definePageMeta } from '../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/pages/runtime/composables';
 export { useLink } from 'vue-router';
