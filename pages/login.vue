@@ -210,17 +210,20 @@ const tfPassword = ref(false);
 const newPassword = ref();
 const newPasswordRepeat = ref();
 async function editPassword() {
-  const getData = await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, {
+  // const getData = await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, {
+    const getData = await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, {
     method: 'GET'
   });
   if (newPassword.value == newPasswordRepeat.value) {
-    const { data } = await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, {
+    // const { data } = await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, {
+      const { data } = await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, {
       method: 'PATCH',
       body: { pass: newPassword.value }
     }
   ); //пуш id товара в корзину
 
-  const getData = await fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, {
+  // const getData = await fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, {
+    const getData = await fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
     method: 'GET'
   });
 console.log(getData)
@@ -233,9 +236,12 @@ console.log(getData)
 }
 
 async function deleteAccount() {
-  await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, { method: 'DELETE' });
-  await $fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, { method: 'DELETE' });
-  await $fetch(`${runtimeConfig.public.apiBase}/favourite/${productStore.user}`, {
+  // await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, { method: 'DELETE' });
+  // await $fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, { method: 'DELETE' });
+  // await $fetch(`${runtimeConfig.public.apiBase}/favourite/${productStore.user}`, {
+    await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, { method: 'DELETE' });
+  await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, { method: 'DELETE' });
+  await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
     method: 'DELETE'
   });
   productStore.user = 1;
@@ -244,7 +250,8 @@ async function deleteAccount() {
 
 async function synchronizationCart() {
   let localData = productStore.cart;
-  const getData = await $fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, {
+  // const getData = await $fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, {
+    const getData = await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
     method: 'GET'
   });
   let editData = getData.carts;
@@ -261,7 +268,7 @@ async function synchronizationCart() {
       editData[keysLocal[i]] = localData[keysLocal[i]];
     }
   }
-  await $fetch(`https://martynovd.ru/shop-api/cart/${productStore.user}`, {
+  await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
     method: 'PATCH',
     body: { carts: editData }
   });
@@ -271,7 +278,8 @@ async function synchronizationCart() {
 
 async function synchronizationFavourite() {
   let localData = favouriteStore.favourite;
-  const getData = await $fetch(`${runtimeConfig.public.apiBase}/favourite/${productStore.user}`, {
+  // const getData = await $fetch(`${runtimeConfig.public.apiBase}/favourite/${productStore.user}`, {
+    const getData = await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
     method: 'GET'
   });
   let editData = getData.favourites;
@@ -287,7 +295,7 @@ async function synchronizationFavourite() {
       editData[keysLocal[i]] = localData[keysLocal[i]];
     }
   }
-  await $fetch(`https://martynovd.ru/shop-api/favourite/${productStore.user}`, {
+  await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
     method: 'PATCH',
     body: { favourites: editData }
   });
