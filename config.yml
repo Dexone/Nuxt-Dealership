@@ -1,7 +1,7 @@
 apps:
 - name: client # process name. You will use it to make commands such as pm2 restart client
   script: /root/Nuxt-Dealership/.output/server/index.mjs  # path to nuxt-start renderer from root nuxt dir. Don't forget to install nuxt-start dependency
-  cwd: /root/app/client    # absolute path to nuxt dir
+  cwd: /root/Nuxt-Dealership/client    # absolute path to nuxt dir
   max_memory_restart: "250M"     # in case nuxt renderer eats all memory, it will be restarted
   args: "start"    # command to skip build and start renderer
   env_production:
