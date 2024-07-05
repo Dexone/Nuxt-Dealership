@@ -7,17 +7,17 @@ type IsAny<T> = 0 extends 1 & T ? true : false
 type InjectionType<A extends Plugin> = IsAny<A> extends true ? unknown : A extends Plugin<infer T> ? Decorate<T> : unknown
 
 type NuxtAppInjections = 
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/app/plugins/payload.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/app/plugins/navigation-repaint.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/app/plugins/check-outdated-build.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/app/plugins/revive-payload.server").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/app/plugins/revive-payload.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/app/plugins/chunk-reload.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/@pinia+nuxt@0.5.1_magicast@0.3.4_rollup@4.18.0_vue@3.4.31/node_modules/@pinia/nuxt/dist/runtime/plugin.vue3").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/head/runtime/plugins/unhead").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/pages/runtime/plugins/router").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/pages/runtime/plugins/prefetch.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/@pinia-plugin-persistedstate+nuxt@1.2.1_@pinia+nuxt@0.5.1_magicast@0.3.4_rollup@4.18.0_vue@3._4jfnhcnhe6qj55avr5da37wlfe/node_modules/@pinia-plugin-persistedstate/nuxt/dist/runtime/plugin").default>
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/app/plugins/payload.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/app/plugins/navigation-repaint.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/app/plugins/check-outdated-build.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/app/plugins/revive-payload.server").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/app/plugins/revive-payload.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/app/plugins/chunk-reload.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/@pinia+nuxt@0.5.1_vue@3.4.31/node_modules/@pinia/nuxt/dist/runtime/plugin.vue3").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/head/runtime/plugins/unhead").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/pages/runtime/plugins/router").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/pages/runtime/plugins/prefetch.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/@pinia-plugin-persistedstate+nuxt@1.2.1_@pinia+nuxt@0.5.1_pinia@2.1.7/node_modules/@pinia-plugin-persistedstate/nuxt/dist/runtime/plugin").default>
 
 declare module '#app' {
   interface NuxtApp extends NuxtAppInjections { }

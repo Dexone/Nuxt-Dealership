@@ -10,17 +10,222 @@ import { isIP } from 'node:net';
 import { statSync, promises, createReadStream } from 'node:fs';
 import { basename } from 'node:path';
 import { b as baseURL } from '../routes/renderer.mjs';
-import { h as createError$1, l as sanitizeStatusCode, m as createHooks, t as toRouteMatcher, n as createRouter$1, o as getRequestHeader, p as setCookie, q as getCookie, r as deleteCookie } from '../runtime.mjs';
 import { getActiveHead, CapoPlugin } from 'unhead';
-import { useRoute as useRoute$1, RouterView, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
+import { useRoute as useRoute$1, RouterView, createMemoryHistory, createRouter as createRouter$1, START_LOCATION } from 'vue-router';
 import { createPersistedState } from 'pinia-plugin-persistedstate';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode, ssrRenderAttrs } from 'vue/server-renderer';
 import 'vue-bundle-renderer/runtime';
+import '../runtime.mjs';
+import 'fs';
+import 'path';
 import 'devalue';
 import '@unhead/ssr';
 import '@unhead/shared';
-import 'fs';
-import 'path';
+
+function flatHooks(configHooks, hooks = {}, parentName) {
+  for (const key in configHooks) {
+    const subHook = configHooks[key];
+    const name = parentName ? `${parentName}:${key}` : key;
+    if (typeof subHook === "object" && subHook !== null) {
+      flatHooks(subHook, hooks, name);
+    } else if (typeof subHook === "function") {
+      hooks[name] = subHook;
+    }
+  }
+  return hooks;
+}
+const defaultTask = { run: (function_) => function_() };
+const _createTask = () => defaultTask;
+const createTask = typeof console.createTask !== "undefined" ? console.createTask : _createTask;
+function serialTaskCaller(hooks, args) {
+  const name = args.shift();
+  const task = createTask(name);
+  return hooks.reduce(
+    (promise, hookFunction) => promise.then(() => task.run(() => hookFunction(...args))),
+    Promise.resolve()
+  );
+}
+function parallelTaskCaller(hooks, args) {
+  const name = args.shift();
+  const task = createTask(name);
+  return Promise.all(hooks.map((hook) => task.run(() => hook(...args))));
+}
+function callEachWith(callbacks, arg0) {
+  for (const callback of [...callbacks]) {
+    callback(arg0);
+  }
+}
+
+class Hookable {
+  constructor() {
+    this._hooks = {};
+    this._before = void 0;
+    this._after = void 0;
+    this._deprecatedMessages = void 0;
+    this._deprecatedHooks = {};
+    this.hook = this.hook.bind(this);
+    this.callHook = this.callHook.bind(this);
+    this.callHookWith = this.callHookWith.bind(this);
+  }
+  hook(name, function_, options = {}) {
+    if (!name || typeof function_ !== "function") {
+      return () => {
+      };
+    }
+    const originalName = name;
+    let dep;
+    while (this._deprecatedHooks[name]) {
+      dep = this._deprecatedHooks[name];
+      name = dep.to;
+    }
+    if (dep && !options.allowDeprecated) {
+      let message = dep.message;
+      if (!message) {
+        message = `${originalName} hook has been deprecated` + (dep.to ? `, please use ${dep.to}` : "");
+      }
+      if (!this._deprecatedMessages) {
+        this._deprecatedMessages = /* @__PURE__ */ new Set();
+      }
+      if (!this._deprecatedMessages.has(message)) {
+        console.warn(message);
+        this._deprecatedMessages.add(message);
+      }
+    }
+    if (!function_.name) {
+      try {
+        Object.defineProperty(function_, "name", {
+          get: () => "_" + name.replace(/\W+/g, "_") + "_hook_cb",
+          configurable: true
+        });
+      } catch {
+      }
+    }
+    this._hooks[name] = this._hooks[name] || [];
+    this._hooks[name].push(function_);
+    return () => {
+      if (function_) {
+        this.removeHook(name, function_);
+        function_ = void 0;
+      }
+    };
+  }
+  hookOnce(name, function_) {
+    let _unreg;
+    let _function = (...arguments_) => {
+      if (typeof _unreg === "function") {
+        _unreg();
+      }
+      _unreg = void 0;
+      _function = void 0;
+      return function_(...arguments_);
+    };
+    _unreg = this.hook(name, _function);
+    return _unreg;
+  }
+  removeHook(name, function_) {
+    if (this._hooks[name]) {
+      const index = this._hooks[name].indexOf(function_);
+      if (index !== -1) {
+        this._hooks[name].splice(index, 1);
+      }
+      if (this._hooks[name].length === 0) {
+        delete this._hooks[name];
+      }
+    }
+  }
+  deprecateHook(name, deprecated) {
+    this._deprecatedHooks[name] = typeof deprecated === "string" ? { to: deprecated } : deprecated;
+    const _hooks = this._hooks[name] || [];
+    delete this._hooks[name];
+    for (const hook of _hooks) {
+      this.hook(name, hook);
+    }
+  }
+  deprecateHooks(deprecatedHooks) {
+    Object.assign(this._deprecatedHooks, deprecatedHooks);
+    for (const name in deprecatedHooks) {
+      this.deprecateHook(name, deprecatedHooks[name]);
+    }
+  }
+  addHooks(configHooks) {
+    const hooks = flatHooks(configHooks);
+    const removeFns = Object.keys(hooks).map(
+      (key) => this.hook(key, hooks[key])
+    );
+    return () => {
+      for (const unreg of removeFns.splice(0, removeFns.length)) {
+        unreg();
+      }
+    };
+  }
+  removeHooks(configHooks) {
+    const hooks = flatHooks(configHooks);
+    for (const key in hooks) {
+      this.removeHook(key, hooks[key]);
+    }
+  }
+  removeAllHooks() {
+    for (const key in this._hooks) {
+      delete this._hooks[key];
+    }
+  }
+  callHook(name, ...arguments_) {
+    arguments_.unshift(name);
+    return this.callHookWith(serialTaskCaller, name, ...arguments_);
+  }
+  callHookParallel(name, ...arguments_) {
+    arguments_.unshift(name);
+    return this.callHookWith(parallelTaskCaller, name, ...arguments_);
+  }
+  callHookWith(caller, name, ...arguments_) {
+    const event = this._before || this._after ? { name, args: arguments_, context: {} } : void 0;
+    if (this._before) {
+      callEachWith(this._before, event);
+    }
+    const result = caller(
+      name in this._hooks ? [...this._hooks[name]] : [],
+      arguments_
+    );
+    if (result instanceof Promise) {
+      return result.finally(() => {
+        if (this._after && event) {
+          callEachWith(this._after, event);
+        }
+      });
+    }
+    if (this._after && event) {
+      callEachWith(this._after, event);
+    }
+    return result;
+  }
+  beforeEach(function_) {
+    this._before = this._before || [];
+    this._before.push(function_);
+    return () => {
+      if (this._before !== void 0) {
+        const index = this._before.indexOf(function_);
+        if (index !== -1) {
+          this._before.splice(index, 1);
+        }
+      }
+    };
+  }
+  afterEach(function_) {
+    this._after = this._after || [];
+    this._after.push(function_);
+    return () => {
+      if (this._after !== void 0) {
+        const index = this._after.indexOf(function_);
+        if (index !== -1) {
+          this._after.splice(index, 1);
+        }
+      }
+    };
+  }
+}
+function createHooks() {
+  return new Hookable();
+}
 
 function createContext$1(opts = {}) {
   let currentInstance;
@@ -118,6 +323,511 @@ const defaultNamespace = _globalThis$1[globalKey$2] || (_globalThis$1[globalKey$
 const getContext = (key, opts = {}) => defaultNamespace.get(key, opts);
 const asyncHandlersKey$1 = "__unctx_async_handlers__";
 const asyncHandlers$1 = _globalThis$1[asyncHandlersKey$1] || (_globalThis$1[asyncHandlersKey$1] = /* @__PURE__ */ new Set());
+
+const fieldContentRegExp = /^[\u0009\u0020-\u007E\u0080-\u00FF]+$/;
+function parse$1(str, options) {
+  if (typeof str !== "string") {
+    throw new TypeError("argument str must be a string");
+  }
+  const obj = {};
+  const opt = {};
+  const dec = opt.decode || decode$2;
+  let index = 0;
+  while (index < str.length) {
+    const eqIdx = str.indexOf("=", index);
+    if (eqIdx === -1) {
+      break;
+    }
+    let endIdx = str.indexOf(";", index);
+    if (endIdx === -1) {
+      endIdx = str.length;
+    } else if (endIdx < eqIdx) {
+      index = str.lastIndexOf(";", eqIdx - 1) + 1;
+      continue;
+    }
+    const key = str.slice(index, eqIdx).trim();
+    if (void 0 === obj[key]) {
+      let val = str.slice(eqIdx + 1, endIdx).trim();
+      if (val.codePointAt(0) === 34) {
+        val = val.slice(1, -1);
+      }
+      obj[key] = tryDecode$1(val, dec);
+    }
+    index = endIdx + 1;
+  }
+  return obj;
+}
+function serialize(name, value, options) {
+  const opt = options || {};
+  const enc = opt.encode || encode$1;
+  if (typeof enc !== "function") {
+    throw new TypeError("option encode is invalid");
+  }
+  if (!fieldContentRegExp.test(name)) {
+    throw new TypeError("argument name is invalid");
+  }
+  const encodedValue = enc(value);
+  if (encodedValue && !fieldContentRegExp.test(encodedValue)) {
+    throw new TypeError("argument val is invalid");
+  }
+  let str = name + "=" + encodedValue;
+  if (void 0 !== opt.maxAge && opt.maxAge !== null) {
+    const maxAge = opt.maxAge - 0;
+    if (Number.isNaN(maxAge) || !Number.isFinite(maxAge)) {
+      throw new TypeError("option maxAge is invalid");
+    }
+    str += "; Max-Age=" + Math.floor(maxAge);
+  }
+  if (opt.domain) {
+    if (!fieldContentRegExp.test(opt.domain)) {
+      throw new TypeError("option domain is invalid");
+    }
+    str += "; Domain=" + opt.domain;
+  }
+  if (opt.path) {
+    if (!fieldContentRegExp.test(opt.path)) {
+      throw new TypeError("option path is invalid");
+    }
+    str += "; Path=" + opt.path;
+  }
+  if (opt.expires) {
+    if (!isDate(opt.expires) || Number.isNaN(opt.expires.valueOf())) {
+      throw new TypeError("option expires is invalid");
+    }
+    str += "; Expires=" + opt.expires.toUTCString();
+  }
+  if (opt.httpOnly) {
+    str += "; HttpOnly";
+  }
+  if (opt.secure) {
+    str += "; Secure";
+  }
+  if (opt.priority) {
+    const priority = typeof opt.priority === "string" ? opt.priority.toLowerCase() : opt.priority;
+    switch (priority) {
+      case "low":
+        str += "; Priority=Low";
+        break;
+      case "medium":
+        str += "; Priority=Medium";
+        break;
+      case "high":
+        str += "; Priority=High";
+        break;
+      default:
+        throw new TypeError("option priority is invalid");
+    }
+  }
+  if (opt.sameSite) {
+    const sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
+    switch (sameSite) {
+      case true:
+        str += "; SameSite=Strict";
+        break;
+      case "lax":
+        str += "; SameSite=Lax";
+        break;
+      case "strict":
+        str += "; SameSite=Strict";
+        break;
+      case "none":
+        str += "; SameSite=None";
+        break;
+      default:
+        throw new TypeError("option sameSite is invalid");
+    }
+  }
+  return str;
+}
+function isDate(val) {
+  return Object.prototype.toString.call(val) === "[object Date]" || val instanceof Date;
+}
+function tryDecode$1(str, decode2) {
+  try {
+    return decode2(str);
+  } catch {
+    return str;
+  }
+}
+function decode$2(str) {
+  return str.includes("%") ? decodeURIComponent(str) : str;
+}
+function encode$1(val) {
+  return encodeURIComponent(val);
+}
+
+const NODE_TYPES = {
+  NORMAL: 0,
+  WILDCARD: 1,
+  PLACEHOLDER: 2
+};
+
+function createRouter(options = {}) {
+  const ctx = {
+    options,
+    rootNode: createRadixNode(),
+    staticRoutesMap: {}
+  };
+  const normalizeTrailingSlash = (p) => options.strictTrailingSlash ? p : p.replace(/\/$/, "") || "/";
+  if (options.routes) {
+    for (const path in options.routes) {
+      insert(ctx, normalizeTrailingSlash(path), options.routes[path]);
+    }
+  }
+  return {
+    ctx,
+    // @ts-ignore
+    lookup: (path) => lookup(ctx, normalizeTrailingSlash(path)),
+    insert: (path, data) => insert(ctx, normalizeTrailingSlash(path), data),
+    remove: (path) => remove(ctx, normalizeTrailingSlash(path))
+  };
+}
+function lookup(ctx, path) {
+  const staticPathNode = ctx.staticRoutesMap[path];
+  if (staticPathNode) {
+    return staticPathNode.data;
+  }
+  const sections = path.split("/");
+  const params = {};
+  let paramsFound = false;
+  let wildcardNode = null;
+  let node = ctx.rootNode;
+  let wildCardParam = null;
+  for (let i = 0; i < sections.length; i++) {
+    const section = sections[i];
+    if (node.wildcardChildNode !== null) {
+      wildcardNode = node.wildcardChildNode;
+      wildCardParam = sections.slice(i).join("/");
+    }
+    const nextNode = node.children.get(section);
+    if (nextNode !== void 0) {
+      node = nextNode;
+    } else {
+      node = node.placeholderChildNode;
+      if (node !== null) {
+        params[node.paramName] = section;
+        paramsFound = true;
+      } else {
+        break;
+      }
+    }
+  }
+  if ((node === null || node.data === null) && wildcardNode !== null) {
+    node = wildcardNode;
+    params[node.paramName || "_"] = wildCardParam;
+    paramsFound = true;
+  }
+  if (!node) {
+    return null;
+  }
+  if (paramsFound) {
+    return {
+      ...node.data,
+      params: paramsFound ? params : void 0
+    };
+  }
+  return node.data;
+}
+function insert(ctx, path, data) {
+  let isStaticRoute = true;
+  const sections = path.split("/");
+  let node = ctx.rootNode;
+  let _unnamedPlaceholderCtr = 0;
+  for (const section of sections) {
+    let childNode;
+    if (childNode = node.children.get(section)) {
+      node = childNode;
+    } else {
+      const type = getNodeType(section);
+      childNode = createRadixNode({ type, parent: node });
+      node.children.set(section, childNode);
+      if (type === NODE_TYPES.PLACEHOLDER) {
+        childNode.paramName = section === "*" ? `_${_unnamedPlaceholderCtr++}` : section.slice(1);
+        node.placeholderChildNode = childNode;
+        isStaticRoute = false;
+      } else if (type === NODE_TYPES.WILDCARD) {
+        node.wildcardChildNode = childNode;
+        childNode.paramName = section.slice(
+          3
+          /* "**:" */
+        ) || "_";
+        isStaticRoute = false;
+      }
+      node = childNode;
+    }
+  }
+  node.data = data;
+  if (isStaticRoute === true) {
+    ctx.staticRoutesMap[path] = node;
+  }
+  return node;
+}
+function remove(ctx, path) {
+  let success = false;
+  const sections = path.split("/");
+  let node = ctx.rootNode;
+  for (const section of sections) {
+    node = node.children.get(section);
+    if (!node) {
+      return success;
+    }
+  }
+  if (node.data) {
+    const lastSection = sections[sections.length - 1];
+    node.data = null;
+    if (Object.keys(node.children).length === 0) {
+      const parentNode = node.parent;
+      parentNode.children.delete(lastSection);
+      parentNode.wildcardChildNode = null;
+      parentNode.placeholderChildNode = null;
+    }
+    success = true;
+  }
+  return success;
+}
+function createRadixNode(options = {}) {
+  return {
+    type: options.type || NODE_TYPES.NORMAL,
+    parent: options.parent || null,
+    children: /* @__PURE__ */ new Map(),
+    data: options.data || null,
+    paramName: options.paramName || null,
+    wildcardChildNode: null,
+    placeholderChildNode: null
+  };
+}
+function getNodeType(str) {
+  if (str.startsWith("**")) {
+    return NODE_TYPES.WILDCARD;
+  }
+  if (str[0] === ":" || str === "*") {
+    return NODE_TYPES.PLACEHOLDER;
+  }
+  return NODE_TYPES.NORMAL;
+}
+
+function toRouteMatcher(router) {
+  const table = _routerNodeToTable("", router.ctx.rootNode);
+  return _createMatcher(table);
+}
+function _createMatcher(table) {
+  return {
+    ctx: { table },
+    matchAll: (path) => _matchRoutes(path, table)
+  };
+}
+function _createRouteTable() {
+  return {
+    static: /* @__PURE__ */ new Map(),
+    wildcard: /* @__PURE__ */ new Map(),
+    dynamic: /* @__PURE__ */ new Map()
+  };
+}
+function _matchRoutes(path, table) {
+  const matches = [];
+  for (const [key, value] of _sortRoutesMap(table.wildcard)) {
+    if (path.startsWith(key)) {
+      matches.push(value);
+    }
+  }
+  for (const [key, value] of _sortRoutesMap(table.dynamic)) {
+    if (path.startsWith(key + "/")) {
+      const subPath = "/" + path.slice(key.length).split("/").splice(2).join("/");
+      matches.push(..._matchRoutes(subPath, value));
+    }
+  }
+  const staticMatch = table.static.get(path);
+  if (staticMatch) {
+    matches.push(staticMatch);
+  }
+  return matches.filter(Boolean);
+}
+function _sortRoutesMap(m) {
+  return [...m.entries()].sort((a, b) => a[0].length - b[0].length);
+}
+function _routerNodeToTable(initialPath, initialNode) {
+  const table = _createRouteTable();
+  function _addNode(path, node) {
+    if (path) {
+      if (node.type === NODE_TYPES.NORMAL && !(path.includes("*") || path.includes(":"))) {
+        table.static.set(path, node.data);
+      } else if (node.type === NODE_TYPES.WILDCARD) {
+        table.wildcard.set(path.replace("/**", ""), node.data);
+      } else if (node.type === NODE_TYPES.PLACEHOLDER) {
+        const subTable = _routerNodeToTable("", node);
+        if (node.data) {
+          subTable.static.set("/", node.data);
+        }
+        table.dynamic.set(path.replace(/\/\*|\/:\w+/, ""), subTable);
+        return;
+      }
+    }
+    for (const [childPath, child] of node.children.entries()) {
+      _addNode(`${path}/${childPath}`.replace("//", "/"), child);
+    }
+  }
+  _addNode(initialPath, initialNode);
+  return table;
+}
+
+function hasProp(obj, prop) {
+  try {
+    return prop in obj;
+  } catch {
+    return false;
+  }
+}
+
+var __defProp$1 = Object.defineProperty;
+var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$1(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField$1 = (obj, key, value) => {
+  __defNormalProp$1(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+class H3Error extends Error {
+  constructor(message, opts = {}) {
+    super(message, opts);
+    __publicField$1(this, "statusCode", 500);
+    __publicField$1(this, "fatal", false);
+    __publicField$1(this, "unhandled", false);
+    __publicField$1(this, "statusMessage");
+    __publicField$1(this, "data");
+    __publicField$1(this, "cause");
+    if (opts.cause && !this.cause) {
+      this.cause = opts.cause;
+    }
+  }
+  toJSON() {
+    const obj = {
+      message: this.message,
+      statusCode: sanitizeStatusCode(this.statusCode, 500)
+    };
+    if (this.statusMessage) {
+      obj.statusMessage = sanitizeStatusMessage(this.statusMessage);
+    }
+    if (this.data !== void 0) {
+      obj.data = this.data;
+    }
+    return obj;
+  }
+}
+__publicField$1(H3Error, "__h3_error__", true);
+function createError$1(input) {
+  if (typeof input === "string") {
+    return new H3Error(input);
+  }
+  if (isError(input)) {
+    return input;
+  }
+  const err = new H3Error(input.message ?? input.statusMessage ?? "", {
+    cause: input.cause || input
+  });
+  if (hasProp(input, "stack")) {
+    try {
+      Object.defineProperty(err, "stack", {
+        get() {
+          return input.stack;
+        }
+      });
+    } catch {
+      try {
+        err.stack = input.stack;
+      } catch {
+      }
+    }
+  }
+  if (input.data) {
+    err.data = input.data;
+  }
+  if (input.statusCode) {
+    err.statusCode = sanitizeStatusCode(input.statusCode, err.statusCode);
+  } else if (input.status) {
+    err.statusCode = sanitizeStatusCode(input.status, err.statusCode);
+  }
+  if (input.statusMessage) {
+    err.statusMessage = input.statusMessage;
+  } else if (input.statusText) {
+    err.statusMessage = input.statusText;
+  }
+  if (err.statusMessage) {
+    const originalMessage = err.statusMessage;
+    const sanitizedMessage = sanitizeStatusMessage(err.statusMessage);
+    if (sanitizedMessage !== originalMessage) {
+      console.warn(
+        "[h3] Please prefer using `message` for longer error messages instead of `statusMessage`. In the future, `statusMessage` will be sanitized by default."
+      );
+    }
+  }
+  if (input.fatal !== void 0) {
+    err.fatal = input.fatal;
+  }
+  if (input.unhandled !== void 0) {
+    err.unhandled = input.unhandled;
+  }
+  return err;
+}
+function isError(input) {
+  return input?.constructor?.__h3_error__ === true;
+}
+function getRequestHeaders(event) {
+  const _headers = {};
+  for (const key in event.node.req.headers) {
+    const val = event.node.req.headers[key];
+    _headers[key] = Array.isArray(val) ? val.filter(Boolean).join(", ") : val;
+  }
+  return _headers;
+}
+function getRequestHeader(event, name) {
+  const headers = getRequestHeaders(event);
+  const value = headers[name.toLowerCase()];
+  return value;
+}
+
+const DISALLOWED_STATUS_CHARS = /[^\u0009\u0020-\u007E]/g;
+function sanitizeStatusMessage(statusMessage = "") {
+  return statusMessage.replace(DISALLOWED_STATUS_CHARS, "");
+}
+function sanitizeStatusCode(statusCode, defaultStatusCode = 200) {
+  if (!statusCode) {
+    return defaultStatusCode;
+  }
+  if (typeof statusCode === "string") {
+    statusCode = Number.parseInt(statusCode, 10);
+  }
+  if (statusCode < 100 || statusCode > 999) {
+    return defaultStatusCode;
+  }
+  return statusCode;
+}
+
+function parseCookies(event) {
+  return parse$1(event.node.req.headers.cookie || "");
+}
+function getCookie(event, name) {
+  return parseCookies(event)[name];
+}
+function setCookie(event, name, value, serializeOptions) {
+  const cookieStr = serialize(name, value, {
+    path: "/",
+    ...serializeOptions
+  });
+  let setCookies = event.node.res.getHeader("set-cookie");
+  if (!Array.isArray(setCookies)) {
+    setCookies = [setCookies];
+  }
+  setCookies = setCookies.filter((cookieValue) => {
+    return cookieValue && !cookieValue.startsWith(name + "=");
+  });
+  event.node.res.setHeader("set-cookie", [...setCookies, cookieStr]);
+}
+function deleteCookie(event, name, serializeOptions) {
+  setCookie(event, name, "", {
+    ...serializeOptions,
+    maxAge: 0
+  });
+}
+
+typeof setImmediate === "undefined" ? (fn) => fn() : setImmediate;
 
 var _a, _b;
 var t$1 = Object.defineProperty;
@@ -4212,9 +4922,9 @@ function createNodeFetch() {
   };
 }
 const fetch = globalThis.fetch || createNodeFetch();
-const Headers = globalThis.Headers || d;
+const Headers$1 = globalThis.Headers || d;
 const AbortController$1 = globalThis.AbortController || A;
-const ofetch = createFetch({ fetch, Headers, AbortController: AbortController$1 });
+const ofetch = createFetch({ fetch, Headers: Headers$1, AbortController: AbortController$1 });
 const $fetch$1 = ofetch;
 if (!globalThis.$fetch) {
   globalThis.$fetch = $fetch$1.create({
@@ -4607,7 +5317,7 @@ function injectHead() {
   return head || getActiveHead();
 }
 [CapoPlugin({ track: true })];
-const unhead_r3J8kVceCn = /* @__PURE__ */ defineNuxtPlugin({
+const unhead_UpTIIsFl8e = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:head",
   enforce: "pre",
   setup(nuxtApp) {
@@ -4808,7 +5518,7 @@ const defu = createDefu();
 async function getRouteRules(url) {
   {
     const _routeRulesMatcher = toRouteMatcher(
-      createRouter$1({ routes: (/* @__PURE__ */ useRuntimeConfig()).nitro.routeRules })
+      createRouter({ routes: (/* @__PURE__ */ useRuntimeConfig()).nitro.routeRules })
     );
     return defu({}, ..._routeRulesMatcher.matchAll(url).reverse());
   }
@@ -4961,7 +5671,7 @@ const plugin$1 = /* @__PURE__ */ defineNuxtPlugin({
     const history = ((_a2 = routerOptions.history) == null ? void 0 : _a2.call(routerOptions, routerBase)) ?? createMemoryHistory(routerBase);
     const routes = ((_b2 = routerOptions.routes) == null ? void 0 : _b2.call(routerOptions, _routes)) ?? _routes;
     let startPosition;
-    const router = createRouter({
+    const router = createRouter$1({
       ...routerOptions,
       scrollBehavior: (to, from, savedPosition) => {
         if (from === START_LOCATION) {
@@ -5146,7 +5856,7 @@ const reducers = {
   Ref: (data) => isRef(data) && data.value,
   Reactive: (data) => isReactive(data) && toRaw(data)
 };
-const revive_payload_server_n7p4Mulcag = /* @__PURE__ */ defineNuxtPlugin({
+const revive_payload_server_7ZFbo8uFBq = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:revive-payload:server",
   setup() {
     for (const reducer in reducers) {
@@ -6367,7 +7077,7 @@ const persistedState = {
   cookies: usePersistedstateCookies(),
   cookiesWithOptions: usePersistedstateCookies
 };
-const plugin_wCzMrMhxQR = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
+const plugin_zdem4Ar1K1 = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
   const {
     cookieOptions,
     debug,
@@ -6380,12 +7090,12 @@ const plugin_wCzMrMhxQR = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
   }));
 });
 const plugins = [
-  unhead_r3J8kVceCn,
+  unhead_UpTIIsFl8e,
   plugin$1,
-  revive_payload_server_n7p4Mulcag,
+  revive_payload_server_7ZFbo8uFBq,
   plugin,
   components_plugin_KR1HBZs4kY,
-  plugin_wCzMrMhxQR
+  plugin_zdem4Ar1K1
 ];
 const __nuxt_component_0 = defineComponent({
   name: "ServerPlaceholder",
@@ -6692,8 +7402,8 @@ const _sfc_main$1 = {
     const statusMessage = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./error-404-CkZgav4W.mjs').then((r) => r.default || r));
-    const _Error = defineAsyncComponent(() => import('./error-500-DdLv4n20.mjs').then((r) => r.default || r));
+    const _Error404 = defineAsyncComponent(() => import('./error-404-DqLK2A9z.mjs').then((r) => r.default || r));
+    const _Error = defineAsyncComponent(() => import('./error-500-BVQ4kgjJ.mjs').then((r) => r.default || r));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ statusCode: unref(statusCode), statusMessage: unref(statusMessage), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
@@ -6703,7 +7413,7 @@ const _sfc_main$1 = {
 const _sfc_setup$1 = _sfc_main$1.setup;
 _sfc_main$1.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/app/components/nuxt-error-page.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/app/components/nuxt-error-page.vue");
   return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
 };
 const _sfc_main = {
@@ -6751,7 +7461,7 @@ const _sfc_main = {
 const _sfc_setup = _sfc_main.setup;
 _sfc_main.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.12.3_@opentelemetry+api@1.9.0_@parcel+watcher@2.4.1_@types+node@20.14.9_ioredis@5.4.1__wxzggpbyumnrihb4aozgbvynhi/node_modules/nuxt/dist/app/components/nuxt-root.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("node_modules/.pnpm/nuxt@3.12.3_vite@5.3.3/node_modules/nuxt/dist/app/components/nuxt-root.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
 let entry;
