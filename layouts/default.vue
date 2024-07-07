@@ -5,7 +5,7 @@
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl pb-5">
           <NuxtLink to="/">
             <a @click="page = 1" class="flex items-center space-x-3 rtl:space-x-reverse">
-              <!-- <img src="../public/car.png" class="h-8" /> -->
+              <!-- <img src="../public/carr.png" class="h-8" /> -->
               <span
                 v-if="page === 1"
                 class="text-blue-700 self-center text-2xl font-semibold whitespace-nowrap"
