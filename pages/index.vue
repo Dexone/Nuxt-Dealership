@@ -10,7 +10,7 @@
           <NuxtLink :to="`/product/${main.id}`"> {{ main.brand }} {{ main.model }} </NuxtLink>
         </h5>
   
-        <p class="text-sm text-gray-500 ml-4 mr-4">
+        <p class="text-sm text-gray-500 ml-4 mr-4 h-10">
           {{ main.year }}г. / {{ main.power }}л.с. / {{ main.engine }} / {{ main.transmission }} /
           {{ main.kuzov }} / {{ main.color }}
         </p>

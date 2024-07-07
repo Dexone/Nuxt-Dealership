@@ -9,17 +9,17 @@
               <span
                 v-if="page === 1"
                 class="text-blue-700 self-center text-2xl font-semibold whitespace-nowrap"
-                >MSHOP</span
+                >DEALERSHIP</span
               >
               <span
                 v-else
                 class="self-center text-2xl text-gray-700 font-semibold whitespace-nowrap"
-                >MSHOP</span
+                >DEALERSHIP</span
               >
             </a>
           </NuxtLink>
 
-          <div class="flex items-center space-x-4 rtl:space-x-reverse font-medium pt-2">
+          <div class="flex items-center space-x-4 rtl:space-x-reverse font-medium">
             <NuxtLink to="/favourite" @click="page = 2">
               <svg
                 class="w-[29px] h-[29px] text-gray-700"
