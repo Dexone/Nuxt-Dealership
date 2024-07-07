@@ -1,7 +1,20 @@
 <template>
+
+
+
+
+
+
+
+
+
+
+
+
+
     <main class="bg-white max-w-7xl mx-auto">
       <div class="max-w-7xl mx-auto mb-3">
-        <!-- <Filters /> -->
+        <Filters />
       </div>
   
       <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow inline-block m-5"
@@ -85,37 +98,37 @@
           </div>
         </div>
       </div>
-      <!-- <Pagination /> -->
+      <Pagination />
     </main>
   </template>
   
   <script setup>
   import { useProduct } from '../store/productStore';
   import { useFavourite } from '../store/productFavourite';
-//   import Filters from '../src/components/index/filters.vue';
-//   import Pagination from '../src/components/index/pagination.vue';
+  import Filters from '../src/components/index/filters.vue';
+  import Pagination from '../src/components/index/pagination.vue';
 //   const runtimeConfig = useRuntimeConfig();
   const productStore = useProduct();
   const favouriteStore = useFavourite();
   
-//   const search = ref([]);
-//   provide('search', search);
-//   watch(search, () => {
-//     update();
-//   });
+  const search = ref([]);
+  provide('search', search);
+  watch(search, () => {
+    update();
+  });
   
-//   const currentPage = ref(1);
-//   provide('currentPage', currentPage);
-//   watch(currentPage, () => {
-//     update();
-//   });
+  const currentPage = ref(1);
+  provide('currentPage', currentPage);
+  watch(currentPage, () => {
+    update();
+  });
   
   const mainInfo = ref(0);
   async function update() {
-    // const page = currentPage.value;
+    const page = currentPage.value;
     const { data } = await useFetch(
-    //   `https://dexone.ru/backend_shop/products?${search.value.join('')}&_page=${page}`
-          `https://dexone.ru/backend_shop/products?&_page=1`
+      `https://dexone.ru/backend_shop/products?${search.value.join('')}&_page=${page}`
+          // `https://dexone.ru/backend_shop/products?&_page=1`
     );
     const mainData = data.value.map((item, index) => {
       return {

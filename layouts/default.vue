@@ -5,7 +5,7 @@
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl pb-5">
           <NuxtLink to="/">
             <a @click="page = 1" class="flex items-center space-x-3 rtl:space-x-reverse">
-              <!-- <img src="../public/carr.png" class="h-8" /> -->
+              <!-- <img src="../public/car.png" class="h-8" /> -->
               <span
                 v-if="page === 1"
                 class="text-blue-700 self-center text-2xl font-semibold whitespace-nowrap"
@@ -19,7 +19,7 @@
             </a>
           </NuxtLink>
 
-          <div class="flex items-center space-x-4 rtl:space-x-reverse font-medium">
+          <div class="flex items-center space-x-4 rtl:space-x-reverse font-medium pt-2">
             <NuxtLink to="/favourite" @click="page = 2">
               <svg
                 class="w-[29px] h-[29px] text-gray-700"
@@ -86,7 +86,7 @@
 
                 <span
                   v-else
-                  class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-blue-800 border-2 border-white rounded-full -top-2 -end-2"
+                  class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-blue-600 border-2 border-white rounded-full -top-2 -end-2"
                 >
                   {{ productStore.quantity[0] }}
                 </span>

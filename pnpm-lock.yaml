@@ -11,6 +11,12 @@ importers:
       '@pinia/nuxt':
         specifier: ^0.5.1
         version: 0.5.1(magicast@0.3.4)(rollup@4.18.0)(vue@3.4.31)
+      '@vueform/multiselect':
+        specifier: ^2.6.8
+        version: 2.6.8
+      '@vueform/slider':
+        specifier: ^2.1.10
+        version: 2.1.10
       axios:
         specifier: ^1.7.2
         version: 1.7.2
@@ -39,6 +45,9 @@ importers:
       '@pinia-plugin-persistedstate/nuxt':
         specifier: ^1.2.1
         version: 1.2.1(@pinia/nuxt@0.5.1(magicast@0.3.4)(rollup@4.18.0)(vue@3.4.31))(magicast@0.3.4)(pinia@2.1.7(vue@3.4.31))(rollup@4.18.0)
+      tailwindcss:
+        specifier: ^3.4.4
+        version: 3.4.4
 
 packages:
 
@@ -1331,6 +1340,12 @@ packages:
 
   '@vue/shared@3.4.31':
     resolution: {integrity: sha512-Yp3wtJk//8cO4NItOPpi3QkLExAr/aLBGZMmTtW9WpdwBCJpRM6zj9WgWktXAl8IDIozwNMByT45JP3tO3ACWA==}
+
+  '@vueform/multiselect@2.6.8':
+    resolution: {integrity: sha512-vu1bkFkViuLbrtSfyWgw11ecNPK7mlBDFe5X9WdsZj3gri3PiZ3OvlfJ920Ebysf7rgiN/+mHJDY2/Y1ITnGEg==}
+
+  '@vueform/slider@2.1.10':
+    resolution: {integrity: sha512-L2G3Ju51Yq6yWF2wzYYsicUUaH56kL1QKGVtimUVHT1K1ADcRT94xVyIeJpS0klliVEeF6iMZFbdXtHq8AsDHw==}
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -5533,6 +5548,10 @@ snapshots:
       vue: 3.4.31
 
   '@vue/shared@3.4.31': {}
+
+  '@vueform/multiselect@2.6.8': {}
+
+  '@vueform/slider@2.1.10': {}
 
   abbrev@1.1.1: {}
 
