@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img alt="" src="./public/user.png">
+  <img src="./public/user.png">
 </p>
 
 
