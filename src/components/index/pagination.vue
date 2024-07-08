@@ -42,7 +42,8 @@ let search = inject('search');
 const currentPage = inject('currentPage');
 const totalPages = ref([]);
 function ffPage() {
-  const data = useFetch(`${runtimeConfig.public.apiBase}/products?${search.value.join('')}`);
+  // const data = useFetch(`${runtimeConfig.public.apiBase}/products?${search.value.join('')}`);
+  const data = useFetch(`https://dexone.ru/backend_shop/products?${search.value.join('')}`);
   setTimeout(() => {
     totalPages.value = [];
     for (let i = 1; i < Math.ceil(data.data.value.length / 10) + 1; i++) {
