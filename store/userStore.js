@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { useProduct } from './productStore';
 import axios from 'axios';
-import db from '../db.json';
 
 export const useUser = defineStore('userStore', {
   state: () => ({ userInfo: {} }),
@@ -64,7 +63,10 @@ export const useUser = defineStore('userStore', {
           let keys = Object.keys(res.data.carts); //ключи из объектов в один массив
           let keysNum = keys.map((item) => Number(item)); //строки в массиве в числа
           let values = Object.values(res.data.carts); //значения из объектов в один массив
-          for (let i = 1; i <= db.products.length; i++) {
+
+
+          axios.get(`https://dexone.ru/backend_shop/products`).then((res) => {
+          for (let i = 1; i <= res.data.length; i++) {
             //TODO переписать на forEach и find
             if (keysNum.indexOf(i) >= 0) {
               useProduct().simile[i] = values[keysNum.indexOf(i)];
@@ -72,6 +74,7 @@ export const useUser = defineStore('userStore', {
               useProduct().simile[i] = 0;
             }
           }
+        })
         });
       }, 500);
     },
@@ -83,10 +86,18 @@ export const useUser = defineStore('userStore', {
           let keys = keysNum.map((item) => Number(item - 1)); //строки в массиве в числа -1 тк из id в индекс
           let values = Object.values(res.data.carts); //значения из объектов в один массив
           useProduct().quantity[0] = keys.length; //количество
-          for (let i = 0; i < useProduct().quantity[0]; i++) {
-            useProduct().quantity[1] =
-              useProduct().quantity[1] + values[i] * db.products[keys[i]].price; //сумма = сумма + (количество[индекс в массиве] * цена[индекс в db])
-          }
+
+
+
+          axios.get(`https://dexone.ru/backend_shop/products`).then((res) => {
+
+            
+            for (let i = 0; i < useProduct().quantity[0]; i++) {
+              useProduct().quantity[1] =
+                useProduct().quantity[1] + values[i] * res.data[keys[i]].price; //сумма = сумма + (количество[индекс в массиве] * цена[индекс в db])
+            }
+
+            })
         });
       }, 500);
     }

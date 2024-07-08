@@ -18,9 +18,10 @@
                   </a>
 
                   <a class="inline-block">
-                    <div class="w-full text-lg font-semibold">{{ main.model }}</div>
-                    <div class="hidden md:block">123</div>
-                    <div class="w-full text-gray-500">{{ main.price.toLocaleString() }} ₽</div>
+                    <div class="w-full text-lg font-semibold">{{ main.brand }} {{ main.model }}</div>
+                    <div class="hidden md:block text-gray-500">          {{ main.year }}г. / {{ main.power }}л.с. / {{ main.engine }} / {{ main.transmission }} /
+                      {{ main.kuzov }} / {{ main.color }}</div>
+                    <div class="w-full ">{{ main.price.toLocaleString() }} ₽</div>
                   </a>
                 </div>
 
@@ -99,7 +100,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col justify-between p-4 leading-normal">
+      <div class="flex flex-col justify-between p-4 leading-normal mx-auto mt-5">
         <div class="w-full max-w-sm p-8 px-16 bg-gray-50 border border-gray-200 rounded-lg shadow">
           <h5 class="mb-4 text-xl font-medium text-gray-900">Характеристики</h5>
           <ul role="list" class="space-y-5 my-7">

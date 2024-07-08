@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useUser } from './userStore';
-import db from '../db.json';
+import axios from 'axios';
 
 export const useProduct = defineStore('productStore', {
   state: () => ({ cart: {}, simile: {}, user: 1, name: 'guest', quantity: [] }), //user: 1 = guest
@@ -95,13 +95,18 @@ export const useProduct = defineStore('productStore', {
       this.quantity = ['loader', 0]; //кол-во товаров в корзине и их сумма
       if (this.user == 1) {
         //если гость (1)
+
+
+        axios.get(`https://dexone.ru/backend_shop/products`).then((res) => {
+
         let keysNum = Object.keys(this.cart); //ключи из объектов в один массив
         let keys = keysNum.map((item) => Number(item - 1)); //строки в массиве в числа -1 тк из id в индекс
         let values = Object.values(this.cart); //значения из объектов в один массив
         this.quantity[0] = keys.length; //количество
         for (let i = 0; i < this.quantity[0]; i++) {
-          this.quantity[1] = this.quantity[1] + values[i] * db.products[keys[i]].price; //сумма = сумма + (количество[индекс в массиве] * цена[индекс в db])
+          this.quantity[1] = this.quantity[1] + values[i] * res.data[keys[i]].price; //сумма = сумма + (количество[индекс в массиве] * цена[индекс в db])
         }
+      })
       }
 
       if (this.user > 1) {

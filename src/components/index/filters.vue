@@ -91,7 +91,7 @@
 </template>
 
 <script setup>
-import db from '../db.json'
+import axios from 'axios'
 defineProps({
   type: Object,
   required: true
@@ -140,19 +140,21 @@ const compareBrands = ref({})
 const optionsBrands = ref()
 
 function ffOptions() {
-  const data = db.products
-  let brand = []
-  for (let i = 0; i < 22; i++) {
-    brand.push(data[i].brand)
+  axios.get(`https://dexone.ru/backend_shop/products`).then((res) => {
+    let brand = []
+  for (let i = 0; i < res.data.length; i++) {
+    brand.push(res.data[i].brand)
 
   }
   optionsBrands.value = [...new Set(brand)]
   for (let i = 0; i < optionsBrands.value.length; i++) { // Brand : []
     compareBrands.value[optionsBrands.value[i]] = []
   }
-  for (let i = 0; i < 22; i++) { // Brand : ['Model1', 'Model2', ...]
-    compareBrands.value[data[i].brand].push(data[i].model)
+  for (let i = 0; i < res.data.length; i++) { // Brand : ['Model1', 'Model2', ...]
+    compareBrands.value[res.data[i].brand].push(res.data[i].model)
   }
+    })
+
 }
 ffOptions()
 
