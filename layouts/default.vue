@@ -109,13 +109,33 @@
 
     <slot />
 
-    <footer>
+    <!-- <footer>
       <hr class="my-6 border-gray-200 mx-auto" />
       <span class="block text-sm text-gray-500 text-center"
         >© 2024 <a href="https://github.com/Dexone" class="hover:underline">Dexone</a>. All Rights
         Reserved.</span
       >
-    </footer>
+    </footer> -->
+
+
+
+
+<div class="h-20"></div>
+
+
+
+    <footer class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6">
+    <span class="text-sm text-gray-500 text-center mx-auto ">© 2024 <a href="https://github.com/dexone" class="hover:underline">Dexone</a>. All Rights Reserved.
+    </span>
+
+</footer>
+
+
+
+
+
+
+
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <nav aria-label="Page navigation example">
-    <ul class="flex items-center -space-x-px h-10 text-base max-w-32 mx-auto">
+    <ul class="flex items-center -space-x-px h-10 text-base max-w-48 mx-auto">
       <li>
         <button @click="ffLeft(), ffColor()"
           class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">

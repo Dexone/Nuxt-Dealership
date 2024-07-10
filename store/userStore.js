@@ -18,7 +18,6 @@ export const useUser = defineStore('userStore', {
     async addToCart(value) {
       const editData = await this.getDataCarts();
 
-      console.log(editData);
       editData[value.id] = 1;
       await $fetch(`https://dexone.ru/backend_shop/cart/${useProduct().user}`, {
         method: 'PATCH',
@@ -58,6 +57,8 @@ export const useUser = defineStore('userStore', {
     findSame() {
       //массив объектов {id: кол-во в корзине}
       setTimeout(() => {
+
+ 
         axios.get(`https://dexone.ru/backend_shop/cart/${useProduct().user}`).then((res) => {
           useProduct().simile = [];
           let keys = Object.keys(res.data.carts); //ключи из объектов в один массив
@@ -65,8 +66,7 @@ export const useUser = defineStore('userStore', {
           let values = Object.values(res.data.carts); //значения из объектов в один массив
 
 
-          axios.get(`https://dexone.ru/backend_shop/products`).then((res) => {
-          for (let i = 1; i <= res.data.length; i++) {
+          for (let i = 1; i <= useProduct().allProducts.length; i++) {
             //TODO переписать на forEach и find
             if (keysNum.indexOf(i) >= 0) {
               useProduct().simile[i] = values[keysNum.indexOf(i)];
@@ -75,7 +75,8 @@ export const useUser = defineStore('userStore', {
             }
           }
         })
-        });
+
+
       }, 500);
     },
 
@@ -89,17 +90,50 @@ export const useUser = defineStore('userStore', {
 
 
 
-          axios.get(`https://dexone.ru/backend_shop/products`).then((res) => {
 
-            
+       
+
             for (let i = 0; i < useProduct().quantity[0]; i++) {
               useProduct().quantity[1] =
-                useProduct().quantity[1] + values[i] * res.data[keys[i]].price; //сумма = сумма + (количество[индекс в массиве] * цена[индекс в db])
+                useProduct().quantity[1] + values[i] * useProduct().allProducts[keys[i]].price; //сумма = сумма + (количество[индекс в массиве] * цена[индекс в db])
             }
 
-            })
+
         });
       }, 500);
+      setTimeout(() => {
+        axios.get(`https://dexone.ru/backend_shop/cart/${useProduct().user}`).then((res) => {
+          let keysNum = Object.keys(res.data.carts); //ключи из объектов в один массив
+          let keys = keysNum.map((item) => Number(item - 1)); //строки в массиве в числа -1 тк из id в индекс
+          let values = Object.values(res.data.carts); //значения из объектов в один массив
+          useProduct().quantity[0] = keys.length; //количество
+
+
+
+
+ 
+
+            for (let i = 0; i < useProduct().quantity[0]; i++) {
+              useProduct().quantity[1] =
+                useProduct().quantity[1] + values[i] * useProduct().allProducts[keys[i]].price; //сумма = сумма + (количество[индекс в массиве] * цена[индекс в db])
+            }
+
+    
+        });
+      }, 500);
+
+
+
+      setTimeout(() => {
+        let amounts = Object.values(useProduct().simile) //массив количеств товаров в коризине для каждой карточки
+
+
+                 useProduct().quantity[2] = amounts.reduce(function(a, b){
+          return a + b;
+      }, 0);
+      }, 1000);
+
+
     }
   },
   persist: true

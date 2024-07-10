@@ -11,7 +11,6 @@
 
 
 
-
     <main class="bg-white max-w-7xl mx-auto">
       <div class="max-w-7xl mx-auto mb-3">
         <Filters />
@@ -41,7 +40,7 @@
         <div class="flex flex-col items-center pb-10">
           <div class="flex mt-4 md:mt-6">
             <button v-if="productStore.simile[main.id] == 'loader'"
-              class="inline-flex items-center px-10 h-10 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+              class="inline-flex items-center px-12 h-10 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
               <svg aria-hidden="true" role="status" class="inline w-3 h-3 me-3 text-white animate-spin"
                 viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -54,7 +53,7 @@
             </button>
   
             <NuxtLink v-if="productStore.simile[main.id] > 0" to="/cart"><button
-                class="inline-flex items-center px-6 h-10 text-sm font-medium text-center text-gray-900 border border-gray rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                class="inline-flex items-center px-4 h-10 text-sm font-medium text-center text-gray-900 border border-gray rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300">
                 В корзине >
               </button></NuxtLink>
   
@@ -111,16 +110,21 @@
   const productStore = useProduct();
   const favouriteStore = useFavourite();
   
+  productStore.editAllProducts();
+
+
   const search = ref([]);
   provide('search', search);
   watch(search, () => {
     update();
+
   });
   
   const currentPage = ref(1);
   provide('currentPage', currentPage);
   watch(currentPage, () => {
     update();
+    console.log(productStore.allProducts)
   });
   
   const mainInfo = ref(0);
