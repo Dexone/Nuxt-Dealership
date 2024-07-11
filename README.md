@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="./public/user.png">
+  <img src="./public/car.png">
 </p>
 
 

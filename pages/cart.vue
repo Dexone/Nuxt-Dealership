@@ -87,9 +87,9 @@
 
       <div class="bg-gray-50 max-w-sm border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full"
         v-if="productStore.quantity[0] > 0">
-        <div>Ваша корзина</div>
-        <div v-if="productStore.quantity[2] != 0">Количество товаров {{ productStore.quantity[2] }} </div>
-        <div v-if="productStore.quantity[2] === 0"> Количество товаров <svg aria-hidden="true"
+        <div class="font-medium text-lg">Ваша корзина</div>
+        <div class="font-light text-sm" v-if="productStore.quantity[2] != 0">Количество товаров: {{ productStore.quantity[2] }} </div>
+        <div class="font-light text-sm" v-if="productStore.quantity[2] === 0"> Количество товаров: <svg aria-hidden="true"
             class="inline w-2 h-2 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -101,8 +101,8 @@
           </svg></div>
 
 
-        <div v-if="productStore.quantity[1] != 0">Сумма товаров {{ productStore.quantity[1].toLocaleString() }} ₽</div>
-        <div v-if="productStore.quantity[1] === 0">Сумма товаров <svg aria-hidden="true"
+        <div class="font-light text-sm" v-if="productStore.quantity[1] != 0">Сумма товаров: {{ productStore.quantity[1].toLocaleString() }} ₽</div>
+        <div class="font-light text-sm" v-if="productStore.quantity[1] === 0">Сумма товаров: <svg aria-hidden="true"
             class="inline w-2 h-2 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -125,15 +125,21 @@
         v-if="productStore.quantity[0] === 0">
         <div class="font-medium text-lg">Корзина пуста</div>
         <div class="text-gray-500 font-light text-sm">Воспользуйтесь поиском, чтобы найти все, что нужно.</div>
-        <div v-if="productStore.user == 1" class="text-gray-500 font-light text-sm">Если в корзине были товары, войдите, чтобы посмотреть список.
+        <div v-if="productStore.user == 1" class="text-gray-500 font-light text-sm">Если в корзине были товары, войдите,
+          чтобы посмотреть список.
 
-        <div><NuxtLink to="/login"><button type="button"
-          class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">Войти</button>
-        </NuxtLink></div>
-      </div>
-        <div v-else class="text-gray-500 font-light text-sm"><NuxtLink to="/"><button type="button"
-          class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">На главную</button>
-        </NuxtLink></div>
+          <div>
+            <NuxtLink to="/login"><button type="button"
+                class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">Войти</button>
+            </NuxtLink>
+          </div>
+        </div>
+        <div v-else class="text-gray-500 font-light text-sm">
+          <NuxtLink to="/"><button type="button"
+              class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">На
+              главную</button>
+          </NuxtLink>
+        </div>
       </div>
 
 
