@@ -92,6 +92,8 @@
 
 <script setup>
 import axios from 'axios'
+import { useFilters } from '../../../store/filtersStore';
+const filtersStore = useFilters();
 defineProps({
   type: Object,
   required: true
@@ -158,33 +160,33 @@ function ffOptions() {
 }
 ffOptions()
 
-let search = inject("search")
+// let search = inject("search")
 function searchPush() { //строка поиска
-  search.value = []
+  filtersStore.search = []
   for (let i = 0; i < colorsVM.value.length; i++) {
-    search.value.push("&color=" + colorsVM.value[i])
+    filtersStore.search.push("&color=" + colorsVM.value[i])
   }
-  search.value.push("&power_gte=" + powerVM.value[0] + "&power_lte=" + powerVM.value[1])
-  search.value.push("&price_gte=" + otPriceVM.value + "&price_lte=" + doPriceVM.value)
+  filtersStore.search.push("&power_gte=" + powerVM.value[0] + "&power_lte=" + powerVM.value[1])
+  filtersStore.search.push("&price_gte=" + otPriceVM.value + "&price_lte=" + doPriceVM.value)
   for (let i = 0; i < engine.value.length; i++) {
-    search.value.push("&engine=" + engine.value[i])
+    filtersStore.search.push("&engine=" + engine.value[i])
   }
   for (let i = 0; i < kpp.value.length; i++) {
-    search.value.push("&transmission=" + kpp.value[i])
+    filtersStore.search.push("&transmission=" + kpp.value[i])
   }
   for (let i = 0; i < kpp.value.length; i++) {
-    search.value.push("&transmission=" + kpp.value[i])
+    filtersStore.search.push("&transmission=" + kpp.value[i])
   }
   for (let i = 0; i < kuzov.value.length; i++) {
-    search.value.push("&kuzov=" + kuzov.value[i])
+    filtersStore.search.push("&kuzov=" + kuzov.value[i])
   }
 
   if (brands.value != undefined) {
-    search.value.push("&brand=" + brands.value)
+    filtersStore.search.push("&brand=" + brands.value)
   }
 
   if (model.value != undefined || model.value != null) {
-    search.value.push("&model=" + model.value)
+    filtersStore.search.push("&model=" + model.value)
   }
 }
 
