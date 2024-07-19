@@ -1,6 +1,7 @@
 <template>
+
   <div v-if="productStore.user == 1">
-    <div v-if="RegOrLogin == 1" class="max-w-80 mx-auto">
+    <div v-if="RegOrLogin == 1" class="max-w-80 mx-auto mt-8">
       <div class="mb-5">
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Логин</label>
         <input
@@ -27,7 +28,7 @@
       <button @click="RegOrLogin = 2" class="ml-3 text-gray-700">Уже есть аккаунт?</button>
     </div>
 
-    <div v-if="RegOrLogin == 2" class="max-w-80 mx-auto">
+    <div v-if="RegOrLogin == 2" class="max-w-80 mx-auto mt-8">
       <div class="mb-5">
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Логин</label>
         <input
@@ -56,7 +57,7 @@
   </div>
 
   <div class="mx-auto max-w-80" v-if="productStore.user > 1">
-    <div class="w-full max-w-80 bg-white border border-gray-200 rounded-lg shadow">
+
       <div class="flex justify-end px-4 pt-8"></div>
       <div class="flex flex-col items-center pb-10">
         <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/public/user.png" />
@@ -127,7 +128,8 @@
         </div>
       </div>
     </div>
-  </div>
+ 
+
 </template>
 
 <script setup>

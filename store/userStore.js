@@ -136,5 +136,7 @@ export const useUser = defineStore('userStore', {
 
     }
   },
-  persist: true
+  persist:  {
+    storage: persistedState.localStorage,
+  },
 });

@@ -50,5 +50,7 @@ export const useFavouriteUser = defineStore('favouriteUser', {
       }, 500);
     }
   },
-  persist: true
+  persist:  {
+    storage: persistedState.localStorage,
+  },
 });
