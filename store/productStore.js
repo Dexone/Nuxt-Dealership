@@ -104,12 +104,6 @@ export const useProduct = defineStore('productStore', {
       if (this.user == 1) {
         //если гость (1)
 
-
-
-
-
-
-
           let keysNum = Object.keys(this.cart); //ключи из объектов в один массив
           let keys = keysNum.map((item) => Number(item - 1)); //строки в массиве в числа -1 тк из id в индекс
           let values = Object.values(this.cart); //значения из объектов в один массив
@@ -118,15 +112,12 @@ export const useProduct = defineStore('productStore', {
             this.quantity[1] = this.quantity[1] + values[i] * this.allProducts[keys[i]].price; //сумма = сумма + (количество[индекс в массиве] * цена[индекс в db])
           }
  
-
-
           setTimeout(() => {
             let amounts = Object.values(useProduct().simile) //массив количеств товаров в коризине для каждой карточки
                      useProduct().quantity[2] = amounts.reduce(function(a, b){
               return a + b;
           }, 0);
           }, 100);
-
 
       }
 

@@ -2,7 +2,7 @@
   <div class="max-w-6xl mx-auto">
     <a class="flex flex-col bg-white rounded-lg md:flex-row">
       <!-- <a class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row"> -->
-      <div class="relative w-full max-w-3xl " v-if="productStore.quantity[0] > 0">
+      <div class="relative w-full max-w-3xl " v-if="productStore.quantity[0] > 0 || productStore.quantity[0] === 'loader'">
         <div class="p-4 md:p-5">
           <ul class="space-y-4 mb-4" v-for="(main, index) in mainInfo">
             <li
@@ -86,7 +86,7 @@
 
 
       <div class="bg-gray-50 max-w-sm border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full"
-        v-if="productStore.quantity[0] > 0">
+        v-if="productStore.quantity[0] > 0 || productStore.quantity[0] === 'loader'">
         <div class="font-medium text-lg">Ваша корзина</div>
         <div class="font-light text-sm" v-if="productStore.quantity[2] != 0">Количество товаров: {{ productStore.quantity[2] }} </div>
         <div class="font-light text-sm" v-if="productStore.quantity[2] === 0"> Количество товаров: <svg aria-hidden="true"
