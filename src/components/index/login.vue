@@ -66,12 +66,12 @@
         <div class="flex flex-col items-center" v-if="tfPassword == false">
           <span class="text-sm text-gray-500">ID аккаунта: {{ productStore.user }}</span>
           <span class="text-sm text-gray-500"
-            >Товаров в корзине: {{ productStore.quantity[0] }}</span
+            >Товаров в корзине: </span
           >
-          <span class="text-sm text-gray-500">Сумма товаров: {{ productStore.quantity[1] }}</span>
+          <span class="text-sm text-gray-500">Сумма товаров: </span>
           <div class="flex mt-4 md:mt-6">
             <button
-              @click="(productStore.user = 1), productStore.editQuantity()"
+              @click="productStore.user = 1"
               class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
             >
               Выйти
@@ -135,16 +135,15 @@
 <script setup>
 import { useProduct } from '../store/productStore';
 import { useFavourite } from '../store/productFavourite';
-
 const productStore = useProduct();
 const favouriteStore = useFavourite();
-// const runtimeConfig = useRuntimeConfig();
+
 const RegOrLogin = ref(1); //выбор вход или регистрация
+
 const regLogin = ref(); //введенный логин в регистрации
 const regPass = ref(); //введенный пароль в регистрации
 async function registration() {
   const getData = await $fetch(`https://dexone.ru/backend_shop/users`, { method: 'GET' });
-  console.log(getData);
   let logins = []; //массив логинов
   for (let i = 0; i < getData.length; i++) {
     logins.push(getData[i].login); //пуш логинов
@@ -156,7 +155,6 @@ async function registration() {
       method: 'POST',
       body: { id: newId, login: regLogin.value, pass: regPass.value }
     });
-    const gettData = await $fetch(`https://dexone.ru/backend_shop/users`, { method: 'GET' });
     productStore.user = newId; //задает id пользователя в аккаунте
       const { data2 } = await $fetch(`https://dexone.ru/backend_shop/cart`, {
       method: 'POST',
@@ -166,32 +164,31 @@ async function registration() {
       method: 'POST',
       body: { id: newId, favourites: {} }
     }); //создает избанное для нового пользователя
-    productStore.name = regLogin.value;
-    synchronizationCart();
+    productStore.name = regLogin.value; //логин в локальное хранилище
   } else {
     alert('Пользователь с таким логином уже существует');
     regLogin.value = '';
     regPass.value = '';
   }
 } 
+
+
 const enterLogin = ref(); //введенный логин вход
 const enterPass = ref(); //введенный пароль вход
 async function enter() {
-  // const getData = await $fetch(`${runtimeConfig.public.apiBase}/users`, { method: 'GET' });
   const getData = await $fetch(`https://dexone.ru/backend_shop/users`, { method: 'GET' });
-  let logins = []; //массив логинов
-  let passes = []; //массив паолей
+  let logins = []; //создан массив логинов
+  let passes = []; //создан массив паролей
   for (let i = 0; i < getData.length; i++) {
-    logins.push(getData[i].login); //пуш логинов
-    passes.push(getData[i].pass); //пуш паролей
+    logins.push(getData[i].login); //пуш логинов с сервера в массив
+    passes.push(getData[i].pass); //пуш паролей с сервера в массив
   }
 
   let indexLogin = logins.indexOf(enterLogin.value); //поиск введенного логина в массиве и возврат индекса, если найден
   if (indexLogin > 0 && enterPass.value == passes[indexLogin]) {
-    // if индекс логина больше 0, введенный пароль = паролю с индексом логина в списке паролей
+    // if индекс логина больше 0 и введенный пароль равен паролю с индексом логина в списке паролей разрешен вход
     productStore.user = indexLogin + 1;
     productStore.name = enterLogin.value;
-    synchronizationCart();
   } else {
     // if индекс логина и пароля не совпадает >> productStore.user = 1, т.е. гость
     alert('неверный логин или пароль');
@@ -201,29 +198,19 @@ async function enter() {
   }
 }
 
-const tfPassword = ref(false);
+
+
+const tfPassword = ref(false); //для v-if окна смены пароля
 const newPassword = ref();
 const newPasswordRepeat = ref();
 async function editPassword() {
-  // const getData = await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, {
-    const getData = await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, {
-    method: 'GET'
-  });
-  if (newPassword.value == newPasswordRepeat.value) {
-    // const { data } = await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, {
+
+  if (newPassword.value == newPasswordRepeat.value) { //если пароль и его повтор совпадают
       const { data } = await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, {
       method: 'PATCH',
       body: { pass: newPassword.value }
     }
-  ); //пуш id товара в корзину
-
-  // const getData = await fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, {
-    const getData = await fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
-    method: 'GET'
-  });
-console.log(getData)
-
-
+  ); 
     alert('Успешно');
   } else {
     alert('Пароли не совпадают');
@@ -231,9 +218,6 @@ console.log(getData)
 }
 
 async function deleteAccount() {
-  // await $fetch(`${runtimeConfig.public.apiBase}/users/${productStore.user}`, { method: 'DELETE' });
-  // await $fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, { method: 'DELETE' });
-  // await $fetch(`${runtimeConfig.public.apiBase}/favourite/${productStore.user}`, {
     await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, { method: 'DELETE' });
   await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, { method: 'DELETE' });
   await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
@@ -245,7 +229,6 @@ async function deleteAccount() {
 
 async function synchronizationCart() {
   let localData = productStore.cart;
-  // const getData = await $fetch(`${runtimeConfig.public.apiBase}/cart/${productStore.user}`, {
     const getData = await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
     method: 'GET'
   });
@@ -268,12 +251,10 @@ async function synchronizationCart() {
     body: { carts: editData }
   });
   productStore.cart = {};
-  synchronizationFavourite();
 }
 
 async function synchronizationFavourite() {
   let localData = favouriteStore.favourite;
-  // const getData = await $fetch(`${runtimeConfig.public.apiBase}/favourite/${productStore.user}`, {
     const getData = await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
     method: 'GET'
   });
@@ -295,6 +276,5 @@ async function synchronizationFavourite() {
     body: { favourites: editData }
   });
   favouriteStore.favourite = {};
-  productStore.editQuantity();
 }
 </script>

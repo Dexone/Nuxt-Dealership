@@ -10,24 +10,22 @@ export const useFavourite = defineStore('favouriteStore', {
   },
   actions: {
     async addToFavourite(value) {
-      if (useProduct().user == 1) {
-        //если гость (1)
+      if (useProduct().user == 1) { //если гость (1)
         this.favourite[value.id] = 1;
       }
-      if (useProduct().user > 1) {
-        //если автоизован (>1)
-        useFavouriteUser().addToFavourite(value);
+      if (useProduct().user > 1) { //если автоизован (>1)
+        this.favourite[value.id] = 1; //добавление локально
+        useFavouriteUser().syncFavourite(); //синхронизация локальной корзины с сервером
       }
     },
 
     async deleteFromFavourite(value) {
-      if (useProduct().user == 1) {
-        //если гость (1)
+      if (useProduct().user == 1) {        //если гость (1)
         delete this.favourite[value];
       }
-      if (useProduct().user > 1) {
-        //если автоизован (>1)
-        useFavouriteUser().deleteFromFavourite(value);
+      if (useProduct().user > 1) {         //если автоизован (>1)
+        delete this.favourite[value];
+        useFavouriteUser().syncFavourite();
       }
     },
 

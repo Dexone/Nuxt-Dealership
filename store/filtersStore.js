@@ -8,7 +8,7 @@ export const useFilters = defineStore('filtersStore', {
 
 
     getters: {
-        // getWeatherInfo: (state) => state.weatherInfo,
+        getSearch: (state) => state.search,
       },
     actions: {
 
