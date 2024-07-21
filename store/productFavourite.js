@@ -12,7 +12,6 @@ export const useFavourite = defineStore('favouriteStore', {
     async addToFavourite(value) {
       if (useProduct().user == 1) {
         //если гость (1)
-        // this.cart.push(value);
         this.favourite[value.id] = 1;
       }
       if (useProduct().user > 1) {

@@ -140,11 +140,9 @@ const productStore = useProduct();
 const favouriteStore = useFavourite();
 // const runtimeConfig = useRuntimeConfig();
 const RegOrLogin = ref(1); //выбор вход или регистрация
-
 const regLogin = ref(); //введенный логин в регистрации
 const regPass = ref(); //введенный пароль в регистрации
 async function registration() {
-  // const getData = await $fetch(`${runtimeConfig.public.apiBase}/users`, { method: 'GET' });
   const getData = await $fetch(`https://dexone.ru/backend_shop/users`, { method: 'GET' });
   console.log(getData);
   let logins = []; //массив логинов
@@ -154,20 +152,16 @@ async function registration() {
   if (logins.includes(regLogin.value) == false) {
     //если такого логина ещё нет допускается регистрация
     let newId = getData[getData.length - 1].id + 1;
-    // const { data } = await $fetch(`${runtimeConfig.public.apiBase}/users`, {
       const { data } = await $fetch(`https://dexone.ru/backend_shop/users`, {
       method: 'POST',
       body: { id: newId, login: regLogin.value, pass: regPass.value }
     });
-    // const gettData = await $fetch(`${runtimeConfig.public.apiBase}/users`, { method: 'GET' });
     const gettData = await $fetch(`https://dexone.ru/backend_shop/users`, { method: 'GET' });
     productStore.user = newId; //задает id пользователя в аккаунте
-    // const { data2 } = await $fetch(`${runtimeConfig.public.apiBase}/cart`, {
       const { data2 } = await $fetch(`https://dexone.ru/backend_shop/cart`, {
       method: 'POST',
       body: { id: newId, carts: {} }
     }); //создает корзину для нового пользователя
-    // const { data3 } = await $fetch(`${runtimeConfig.public.apiBase}/favourite`, {
       const { data3 } = await $fetch(`https://dexone.ru/backend_shop/favourite`, {
       method: 'POST',
       body: { id: newId, favourites: {} }
@@ -179,10 +173,9 @@ async function registration() {
     regLogin.value = '';
     regPass.value = '';
   }
-}
-// getData[getData.length - 1]
-const enterLogin = ref(); //введенный логин во входе
-const enterPass = ref(); //введенный пароль во входе
+} 
+const enterLogin = ref(); //введенный логин вход
+const enterPass = ref(); //введенный пароль вход
 async function enter() {
   // const getData = await $fetch(`${runtimeConfig.public.apiBase}/users`, { method: 'GET' });
   const getData = await $fetch(`https://dexone.ru/backend_shop/users`, { method: 'GET' });
