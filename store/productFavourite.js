@@ -3,10 +3,11 @@ import { useProduct } from './productStore';
 import { useFavouriteUser } from './userFavourite';
 
 export const useFavourite = defineStore('favouriteStore', {
-  state: () => ({ favourite: {}, simile: {} }),
+  state: () => ({ favourite: {}, simile: {}
+   }),
   getters: {
     getFavourite: (state) => state.favourite,
-    getSimile: (state) => state.simile
+    getSimile: (state) => state.simile,
   },
   actions: {
     async addToFavourite(value) {
@@ -15,7 +16,7 @@ export const useFavourite = defineStore('favouriteStore', {
       }
       if (useProduct().user > 1) { //если автоизован (>1)
         this.favourite[value.id] = 1; //добавление локально
-        useFavouriteUser().syncFavourite(); //синхронизация локальной корзины с сервером
+        useFavouriteUser().syncFromFavouriteToServer(); //синхронизация локальной корзины с сервером
       }
     },
 
@@ -25,7 +26,7 @@ export const useFavourite = defineStore('favouriteStore', {
       }
       if (useProduct().user > 1) {         //если автоизован (>1)
         delete this.favourite[value];
-        useFavouriteUser().syncFavourite();
+        useFavouriteUser().syncFromFavouriteToServer();
       }
     },
 

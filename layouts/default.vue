@@ -14,7 +14,7 @@
 
           <div class="flex items-center space-x-4 rtl:space-x-reverse font-medium pt-2">
             <NuxtLink to="/favourite" @click="page = 2">
-              <svg class="w-[29px] h-[29px] text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              <svg class="w-[29px] h-[29px] text-gray-700"  xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
@@ -23,7 +23,7 @@
 
             <NuxtLink to="/cart" @click="page = 3">
               <button class="relative inline-flex items-center pt-1.5 px-0.5 text-sm font-medium text-center">
-                <svg class="w-[33px] h-[33px] text-gray-800 dark:text-white" aria-hidden="true"
+                <svg class="w-[33px] h-[33px] text-gray-800 "
                   xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3"
                     d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312" />
@@ -33,7 +33,7 @@
 
                 <span 
                   class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-blue-600 border-2 border-white rounded-full -top-2 -end-2">
-                  $
+                  {{ Object.keys(productStore.cart).length }}
                 </span>
               </button>
             </NuxtLink>
@@ -54,13 +54,6 @@
 <div :class="{ 'blur-md': blur }">
     <slot />
   </div>
-    <!-- <footer>
-      <hr class="my-6 border-gray-200 mx-auto" />
-      <span class="block text-sm text-gray-500 text-center"
-        >© 2024 <a href="https://github.com/Dexone" class="hover:underline">Dexone</a>. All Rights
-        Reserved.</span
-      >
-    </footer> -->
     <div :class="{ 'hidden': hiddenLogin }" class=" overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-[calc(100%-1rem)] max-h-[400px] max-w-sm mx-auto mt-36   w-full  bg-white border border-gray-200 rounded-lg shadow  ">
 
    <Login /></div>

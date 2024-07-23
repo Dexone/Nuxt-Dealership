@@ -1,4 +1,5 @@
 <template>
+  
   <main class="bg-white max-w-7xl mx-auto">
     <a v-for="(main, index) in mainInfo">
       <div
@@ -43,7 +44,6 @@
             >
               <svg
                 class="w-6 h-6 text-gray-800"
-                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -62,35 +62,21 @@
       </div>
     </a>
 
-    <!-- <div class="bg-gray-50  border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full"
-        v-if="Object.keys(favouriteStore.favourite).length === 0 && productStore.user === 1">
+
+
+    <div class="bg-gray-50  border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full" v-if="Object.keys(favouriteStore.favourite).length === 0">
         <div class="font-medium text-lg">В избранном пусто</div>
         <div class="text-gray-500 font-light text-sm">Воспользуйтесь поиском, чтобы найти все, что нужно.</div>
-        <div v-if="productStore.user == 1" class="text-gray-500 font-light text-sm">Если в избранном были товары, войдите, чтобы посмотреть список.
-
-        <div><NuxtLink to="/login"><button type="button"
-          class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">Войти</button>
-        </NuxtLink></div>
+        <div  class="text-gray-500 font-light text-sm">Если в избранном были товары, войдите,
+          чтобы посмотреть список.
+         </div>
+        <div class="text-gray-500 font-light text-sm">
+          <NuxtLink to="/"><button type="button"
+              class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">На
+              главную</button>
+          </NuxtLink>
+        </div>
       </div>
-        <div v-else class="text-gray-500 font-light text-sm"><NuxtLink to="/"><button type="button"
-          class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">На главную</button>
-        </NuxtLink></div>
-      </div>
-
-      <div class="bg-gray-50  border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full"
-      v-if="productStore.user > 1 && favouriteStore.simile[productStore.user] === 0 || favouriteStore.simile[productStore.user] == 'loader'">
-        <div class="font-medium text-lg">В избранном пусто</div>
-        <div class="text-gray-500 font-light text-sm">Воспользуйтесь поиском, чтобы найти все, что нужно.</div>
-        <div v-if="productStore.user == 1" class="text-gray-500 font-light text-sm">Если в избранном были товары, войдите, чтобы посмотреть список.
-
-        <div><NuxtLink to="/login"><button type="button"
-          class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">Войти</button>
-        </NuxtLink></div>
-      </div>
-        <div v-else class="text-gray-500 font-light text-sm"><NuxtLink to="/"><button type="button"
-          class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">На главную</button>
-        </NuxtLink></div>
-      </div> -->
 
 
   </main>
@@ -100,7 +86,6 @@
 <script setup>
 import { useFavourite } from '../store/productFavourite';
 import { useProduct } from '../store/productStore';
-import axios from 'axios';
 const productStore = useProduct();
 const favouriteStore = useFavourite();
 

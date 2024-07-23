@@ -100,7 +100,7 @@
             <input
               v-model="newPassword"
               type="password"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="•••••••••"
             />
           </div>
@@ -134,9 +134,16 @@
 
 <script setup>
 import { useProduct } from '../store/productStore';
-import { useFavourite } from '../store/productFavourite';
 const productStore = useProduct();
+import { useFavourite } from '../store/productFavourite';
 const favouriteStore = useFavourite();
+
+import { useUser } from '../store/userStore';
+const userStore = useUser();
+
+import { useFavouriteUser } from '../store/userFavourite';
+const userFavourite = useFavouriteUser();
+
 
 const RegOrLogin = ref(1); //выбор вход или регистрация
 
@@ -165,6 +172,11 @@ async function registration() {
       body: { id: newId, favourites: {} }
     }); //создает избанное для нового пользователя
     productStore.name = regLogin.value; //логин в локальное хранилище
+
+
+    userStore.syncFromCartToServer() //отправка локальной корзины на сервер
+    userFavourite.syncFromFavouriteToServer() //отправка локального избранного на сервер
+
   } else {
     alert('Пользователь с таким логином уже существует');
     regLogin.value = '';
@@ -189,6 +201,9 @@ async function enter() {
     // if индекс логина больше 0 и введенный пароль равен паролю с индексом логина в списке паролей разрешен вход
     productStore.user = indexLogin + 1;
     productStore.name = enterLogin.value;
+
+    userStore.syncFromServerToCart() //получение корзины с сервера в локальную
+    userFavourite.syncFromServerToFavourite() //получение избранного с сервера в локальное
   } else {
     // if индекс логина и пароля не совпадает >> productStore.user = 1, т.е. гость
     alert('неверный логин или пароль');

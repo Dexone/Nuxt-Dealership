@@ -1,58 +1,18 @@
+# Nuxt-Dealership
 
-<p align="center">
-  <img src="./public/car.png">
-</p>
+Пэт-проект дилерского центра
 
+## Особенности
 
-<h1 align="center">Nuxt-Dealership</h1>
-<p align="center">Демонстрационный образец дилерского центра</p>
-
-
-
-<h3 align="center">Технологический стэк</h3>
-<div align="center">
-
-### ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)  ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Nuxtjs](https://img.shields.io/badge/Nuxt-002E3B?style=for-the-badge&logo=nuxtdotjs&logoColor=#00DC82) ![Pinia](https://img.shields.io/badge/Pinia-0d121b?style=for-the-badge) ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)  ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)  ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)  ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)  ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Axios](https://img.shields.io/badge/AXIOS-0d121b?style=for-the-badge) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-</div>
-
-
-
-
-<p align="center">
-  <a href="http://79.174.95.150" alt="demo" >
-    Демо
-  </a>
-  |
-  <a href="https://github.com/Dexone/Nuxt-Dealership/releases" alt="releases" >
-    Список релизов
-  </a>
-    |
-  <a href="https://t.me/mrtynnvv" alt="telegram" >
-    Связаться с автором
-  </a>
-</p>
-
-
-
-
-
-## ✨ Особенности
-
-- Взаимодействие с управляемой базой данных, размещенной на Linux Ubuntu Server
-- Использование библиотеки управления состояниями Pinia
-
-
-## 🚀 Возможности
-
-1. Аутентификация:
-   - Авторизация и создание аккаунта для новых пользователей
-   - Смена пароля
-   - Удаление аккаунта
-
-дополняется
-
-
-## 🔧 Конфигурация
+- [Демо](http://79.174.95.150/cars/1) размещено на VDS (Nginx + PM2)
+- Взаимодействие с бэком на отдельном сервере
+- Адаптивная верстка с использованием Tailwind CSS
+- Сохраняемый local storage с использованием библиотеки управления состояниями Pinia
+- Авторизация (Регистрация, аутинтификация, смена пароля, удаление аккаунта)
+- Корзина (Добавление, удаление, изменение, счетчик количества и суммы)
+- Избранное (Добавление, удаление)
+- Карточка товара с прокручивающимися фото
+- Пагинация с изменением адреса (Vue router)
 
 Установка зависимостей:
 

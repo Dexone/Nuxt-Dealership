@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-6xl mx-auto">
     <a class="flex flex-col bg-white rounded-lg md:flex-row">
-      <div class="relative w-full max-w-3xl ">
+      <div class="relative w-full max-w-3xl " v-if="Object.keys(productStore.cart).length >0">
         <div class="p-4 md:p-5">
           <ul class="space-y-4 mb-4" v-for="(main, index) in mainInfo">
             <li
@@ -28,8 +28,8 @@
                     class="inline-flex items-center px-2 py-1 text-sm font-medium text-gray-500 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">
                     -
                   </button>
-
-                  <a type="button" class="px-2 py-1 text-sm font-medium text-gray-500">
+              
+                  <a class="px-2 py-1 text-sm font-medium text-gray-500">
                     <a>{{ productStore.cart[main.id] }}</a>
                   </a>
 
@@ -42,7 +42,7 @@
                     class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-500 p-1.5 inline-flex items-center justify-center h-8 w-8"
                     data-dismiss-target="#toast-success" aria-label="Close">
 
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none"
                       viewBox="0 0 14 14">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -55,16 +55,18 @@
         </div>
       </div>
 
+     
 
 
 
 
 
-
-      <div class="bg-gray-50 max-w-sm border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full">
+      <div class="bg-gray-50 max-w-sm border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full" v-if="Object.keys(productStore.cart).length >0">
         <div class="font-medium text-lg">Ваша корзина</div>
-        <div class="font-light text-sm" >Количество товаров: {{ productStore.quantity[2] }} </div>
-        <div class="font-light text-sm">Сумма товаров: {{ productStore.quantity[1].toLocaleString() }} ₽</div>
+       <div class="font-light text-sm" >Количество товаров: {{  productStore.getQuantity  }}</div>
+        <!--  <div class="font-light text-sm">Сумма товаров:  {{ productStore.getCartSumm }} ₽</div> -->
+
+        {{ productStore.cart }}
       </div>
 
 
@@ -74,26 +76,19 @@
 
 
 
-      <!-- <div class="bg-gray-50  border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full"
-        v-if="productStore.quantity[0] === 0">
+      <div class="bg-gray-50  border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full" v-if="Object.keys(productStore.cart).length === 0">
         <div class="font-medium text-lg">Корзина пуста</div>
         <div class="text-gray-500 font-light text-sm">Воспользуйтесь поиском, чтобы найти все, что нужно.</div>
-        <div v-if="productStore.user == 1" class="text-gray-500 font-light text-sm">Если в корзине были товары, войдите,
+        <div  class="text-gray-500 font-light text-sm">Если в корзине были товары, войдите,
           чтобы посмотреть список.
-
-          <div>
-            <NuxtLink to="/login"><button type="button"
-                class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">Войти</button>
-            </NuxtLink>
-          </div>
-        </div>
-        <div v-else class="text-gray-500 font-light text-sm">
+         </div>
+        <div class="text-gray-500 font-light text-sm">
           <NuxtLink to="/"><button type="button"
               class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">На
               главную</button>
           </NuxtLink>
         </div>
-      </div> -->
+      </div>
 
 
 
