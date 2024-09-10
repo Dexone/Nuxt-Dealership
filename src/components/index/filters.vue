@@ -9,7 +9,6 @@
 
     <div class="min-w-72 mt-2 mr-2 inline-block">
       <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Модель:</label>
-
       <Multiselect v-if="brands === undefined || brands === null" v-model="model" :options="compareBrands[brands]"
         placeholder="Любая" mode="single" class="multiselect-blue" disabled="false" />
       <Multiselect v-else v-model="model" :options="compareBrands[brands]" placeholder="Любой" mode="single"
