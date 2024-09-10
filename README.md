@@ -1,16 +1,6 @@
-### Пэт-проект дилерского центра
+## Setup
 
-- [Демо](https://dexone.ru/cars/1) размещено на VDS (Nginx + PM2)
-- Взаимодействие с бэком на отдельном сервере
-- Адаптивная верстка с использованием Tailwind CSS
-- Сохраняемый local storage с использованием библиотеки управления состояниями Pinia
-- Авторизация (Регистрация, аутинтификация, смена пароля, удаление аккаунта)
-- Корзина (Добавление, удаление, изменение, счетчик количества и суммы)
-- Избранное (Добавление, удаление)
-- Карточка товара с прокручивающимися фото
-- Пагинация с изменением адреса (Vue router)
-
-Установка зависимостей:
+Make sure to install the dependencies:
 
 ```bash
 # npm
@@ -26,7 +16,9 @@ yarn install
 bun install
 ```
 
-Компиляция и запуск сервера разработки `http://localhost:3000`:
+## Development Server
+
+Start the development server on `http://localhost:3000`:
 
 ```bash
 # npm
@@ -42,7 +34,9 @@ yarn dev
 bun run dev
 ```
 
-Компиляция и минимизация для продакшена:
+## Production
+
+Build the application for production:
 
 ```bash
 # npm
@@ -58,7 +52,7 @@ yarn build
 bun run build
 ```
 
-Локальная предварительная версия рабочей сборки:
+Locally preview production build:
 
 ```bash
 # npm
