@@ -20,9 +20,6 @@ export const useUser = defineStore('userStore', {
       });
       useProduct().cart = getData.carts
     },
-
-
-
   },
   persist:  {
     storage: persistedState.localStorage,

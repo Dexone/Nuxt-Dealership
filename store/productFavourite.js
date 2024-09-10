@@ -29,8 +29,6 @@ export const useFavourite = defineStore('favouriteStore', {
         useFavouriteUser().syncFromFavouriteToServer();
       }
     },
-
-   
   },
   persist:  {
     storage: persistedState.localStorage,

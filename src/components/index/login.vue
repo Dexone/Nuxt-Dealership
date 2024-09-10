@@ -213,8 +213,6 @@ async function enter() {
   }
 }
 
-
-
 const tfPassword = ref(false); //для v-if окна смены пароля
 const newPassword = ref();
 const newPasswordRepeat = ref();

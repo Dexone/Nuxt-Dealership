@@ -88,8 +88,6 @@ defineProps({
     car: Object,
 })
 
-
-
 function addToCart(value) {
     productStore.addToCart(value);
 }

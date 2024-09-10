@@ -64,9 +64,11 @@
       <div class="bg-gray-50 max-w-sm border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full" v-if="Object.keys(productStore.cart).length >0">
         <div class="font-medium text-lg">Ваша корзина</div>
        <div class="font-light text-sm" >Количество товаров: {{  productStore.getQuantity  }}</div>
-        <!--  <div class="font-light text-sm">Сумма товаров:  {{ productStore.getCartSumm }} ₽</div> -->
+         <div class="font-light text-sm">Сумма товаров:  {{ productStore.getCartSumm }} ₽</div>
 
         {{ productStore.cart }}
+
+        {{ productStore.getAllProducts}}
       </div>
 
 

@@ -20,8 +20,6 @@ export const useFavouriteUser = defineStore('favouriteUser', {
       useFavourite().favourite = getData.favourites
       console.log(getData)
     },
-
-
   },
   persist:  {
     storage: persistedState.localStorage,
