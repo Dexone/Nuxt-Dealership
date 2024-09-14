@@ -66,9 +66,9 @@
        <div class="font-light text-sm" >Количество товаров: {{  productStore.getQuantity  }}</div>
          <div class="font-light text-sm">Сумма товаров:  {{ productStore.getCartSumm }} ₽</div>
 
-        {{ productStore.cart }}
+        <!-- {{ productStore.cart }} -->
 
-        {{ productStore.getAllProducts}}
+        <!-- {{ productStore.getAllProducts}} -->
       </div>
 
 

@@ -78,9 +78,6 @@ const favouriteStore = useFavourite();
 
 
 
-function test(){
-console.log((Object.keys(favouriteStore.favourite)).includes("1"))
-}
 
 watch(filtersStore, () => {
   update();
@@ -120,14 +117,7 @@ async function update() {
 await update();
 
 
-
-
-
-
-
-
-
-
+productStore.getProducts()
 //pagination
 
 
