@@ -106,6 +106,11 @@ import { useProduct } from '../store/productStore';
 // const runtimeConfig = useRuntimeConfig();
 const productStore = useProduct();
 
+useSeoMeta({
+  title: () => "Корзина"
+})
+
+
 const mainInfo = ref(0);
 async function update() {
   const { data } = await useFetch(`https://dexone.ru/backend_shop/products`);

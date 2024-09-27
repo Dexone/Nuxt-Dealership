@@ -3,7 +3,7 @@
 
     <div class="min-w-72 mt-2 mr-2 inline-block">
       <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Марка:</label>
-      <Multiselect v-model="brands" :options="optionsBrands" placeholder="Любая" mode="single"
+      <Multiselect v-model="brands" :options="optionsBrands" @change="model=undefined" placeholder="Любая" mode="single"
         class="multiselect-blue" />
     </div>
 
@@ -23,69 +23,74 @@
         placeholder="Любой" mode="tags" class="multiselect-blue" />
     </div>
 
-<a :class="{ 'hidden': hiddenFilters }">
+    <a :class="{ 'hidden': hiddenFilters }">
 
 
 
-    <div class="min-w-72 mt-2 mr-2 inline-block">
-      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Трансмиссия:</label>
-      <Multiselect v-model="kpp" :options="['АКПП', 'МКПП', 'Вариатор']" placeholder="Любая" mode="tags"
-        class="multiselect-blue" />
-    </div>
-
-    <form class="w-72 mt-2 mr-2 inline-block">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Мощность двигателя:</label>
-      <div>
-        <Slider :tooltips="false" v-model="sliderPower" @input="ffSliderPower()" class="slider-blue  ml-5 mr-5"
-          :step="10" :min="100" :max="550" :lazy="false" />
-      </div>
-      <div class="flex">
-        <input v-model="powerVM[0]"
-          class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
-          placeholder="Цена от">
-        </input>
-        <input type="text" v-model="powerVM[1]"
-          class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
-          placeholder="Цена до">
-      </div>
-    </form>
-
-    <div class="min-w-72 mt-2 mr-2 inline-block">
-      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Двигатель:</label>
-      <Multiselect v-model="engine" :options="['Бензин', 'Дизель', 'Электро']" placeholder="Любой" mode="tags"
-        class="multiselect-blue" />
-    </div>
-
-    <form class="w-72 inline-block mr-2">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Цена:</label>
-
-      <div>
-        <Slider :step="100000" :tooltips="false" v-model="sliderPrice" @input="ffSliderPrice()"
-          class="slider-blue ml-5 mr-5" :min="2000000" :max="12000000" :lazy="false" />
+      <div class="min-w-72 mt-2 mr-2 inline-block">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Трансмиссия:</label>
+        <Multiselect v-model="kpp" :options="['АКПП', 'МКПП', 'Вариатор']" placeholder="Любая" mode="tags"
+          class="multiselect-blue" />
       </div>
 
-      <div class="flex">
-        <input v-model="otPrice"
-          class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
-          placeholder="Цена от">
-        </input>
-        <input v-model="doPrice"
-          class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
-          placeholder="Цена до">
+      <form class="w-72 mt-2 mr-2 inline-block">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Мощность двигателя:</label>
+        <div>
+          <Slider :tooltips="false" v-model="sliderPower" @input="ffSliderPower()" class="slider-blue  ml-5 mr-5"
+            :step="10" :min="100" :max="550" :lazy="false" />
+        </div>
+        <div class="flex">
+          <input v-model="powerVM[0]"
+            class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
+            placeholder="Цена от">
+          </input>
+          <input type="text" v-model="powerVM[1]"
+            class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
+            placeholder="Цена до">
+        </div>
+      </form>
+
+      <div class="min-w-72 mt-2 mr-2 inline-block">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Двигатель:</label>
+        <Multiselect v-model="engine" :options="['Бензин', 'Дизель', 'Электро']" placeholder="Любой" mode="tags"
+          class="multiselect-blue" />
       </div>
-    </form>
 
-    <div class="min-w-72 mt-2 mr-2 inline-block">
-      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Цвет:</label>
-      <Multiselect v-model="colorsVM"
-        :options="['Черный', 'Красный', 'Серый', 'Белый', 'Коричневый', 'Синий', 'Серебристый']" placeholder="Любой"
-        mode="tags" class="multiselect-blue" />
-    </div>
+      <form class="w-72 inline-block mr-2">
+        <label class="block mb-2 text-sm font-medium text-gray-900">Цена:</label>
+
+        <div>
+          <Slider :step="100000" :tooltips="false" v-model="sliderPrice" @input="ffSliderPrice()"
+            class="slider-blue ml-5 mr-5" :min="2000000" :max="12000000" :lazy="false" />
+        </div>
+
+        <div class="flex">
+          <input v-model="otPrice"
+            class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
+            placeholder="Цена от">
+          </input>
+          <input v-model="doPrice"
+            class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
+            placeholder="Цена до">
+        </div>
+      </form>
+
+      <div class="min-w-72 mt-2 mr-2 inline-block">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Цвет:</label>
+        <Multiselect v-model="colorsVM"
+          :options="['Черный', 'Красный', 'Серый', 'Белый', 'Коричневый', 'Синий', 'Серебристый']" placeholder="Любой"
+          mode="tags" class="multiselect-blue" />
+      </div>
 
 
-  </a>
-<button class="text-blue-600 mt-2" @click="hiddenFilters = !hiddenFilters"><a v-if="hiddenFilters === true">Показать еще</a>
-  <a v-if="hiddenFilters === false">Скрыть</a></button>
+    </a>
+    <button class="text-blue-600 mt-2" @click="hiddenFilters = !hiddenFilters"><a v-if="hiddenFilters === true">Показать
+        еще</a>
+      <a v-if="hiddenFilters === false">Скрыть</a></button>
+
+
+    <button class="text-gray-600 mt-2 ml-2" @click="reset()">Сбросить</button>
+
   </a>
 </template>
 
@@ -105,8 +110,8 @@ const otPrice = ref()
 const doPrice = ref()
 const otPriceVM = ref(2000000)
 const doPriceVM = ref(12000000)
-const sliderPrice = ref([2000000, 12000000])
-function ffSliderPrice() {
+const sliderPrice = ref([2000000, 12000000]) //слайдер цены
+function ffSliderPrice() { //текстовое значение присваивается слайдеру
   otPrice.value = String(sliderPrice.value[0])
   doPrice.value = String(sliderPrice.value[1])
 }
@@ -131,8 +136,8 @@ const engine = ref([])
 const brands = ref()
 const model = ref()
 
-const sliderPower = ref([100, 550])
-function ffSliderPower() {
+const sliderPower = ref([100, 550]) //слайдер мощности
+function ffSliderPower() { //текстовое значение присваивается слайдеру
   powerVM.value[0] = sliderPower.value[0]
   powerVM.value[1] = sliderPower.value[1]
 }
@@ -143,18 +148,18 @@ const optionsBrands = ref()
 function ffOptions() {
   axios.get(`https://dexone.ru/backend_shop/products`).then((res) => {
     let brand = []
-  for (let i = 0; i < res.data.length; i++) {
-    brand.push(res.data[i].brand)
+    for (let i = 0; i < res.data.length; i++) {
+      brand.push(res.data[i].brand)
 
-  }
-  optionsBrands.value = [...new Set(brand)]
-  for (let i = 0; i < optionsBrands.value.length; i++) { // Brand : []
-    compareBrands.value[optionsBrands.value[i]] = []
-  }
-  for (let i = 0; i < res.data.length; i++) { // Brand : ['Model1', 'Model2', ...]
-    compareBrands.value[res.data[i].brand].push(res.data[i].model)
-  }
-    })
+    }
+    optionsBrands.value = [...new Set(brand)]
+    for (let i = 0; i < optionsBrands.value.length; i++) { // Brand : []
+      compareBrands.value[optionsBrands.value[i]] = []
+    }
+    for (let i = 0; i < res.data.length; i++) { // Brand : ['Model1', 'Model2', ...]
+      compareBrands.value[res.data[i].brand].push(res.data[i].model)
+    }
+  })
 
 }
 ffOptions()
@@ -189,6 +194,20 @@ function searchPush() { //строка поиска
   }
 }
 
+function reset() { //сброс всех фильтров
+  brands.value = undefined
+  model.value = undefined
+  kuzov.value = []
+  kpp.value = []
+  sliderPower.value = [100, 550]
+  ffSliderPower()
+  engine.value = []
+  sliderPrice.value = [2000000, 12000000]
+  ffSliderPrice()
+  colorsVM.value = []
+}
+
+
 watch([colorsVM, powerVM.value, kuzov, kpp, brands, engine, model], () => {
   searchPush()
 })
@@ -204,6 +223,7 @@ watch([colorsVM, powerVM.value, kuzov, kpp, brands, engine, model], () => {
   --slider-handle-width: 13px;
   --slider-handle-height: 13px;
 }
+
 .multiselect-blue {
   --ms-tag-bg: #DBEAFE;
   --ms-tag-color: #2563EB;

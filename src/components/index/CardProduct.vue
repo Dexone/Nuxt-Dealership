@@ -70,6 +70,7 @@
 
 <script setup>
 import { ref } from 'vue';
+
 import { useProduct } from '../store/productStore';
 const productStore = useProduct();
 import { useFavourite } from '../store/productFavourite';

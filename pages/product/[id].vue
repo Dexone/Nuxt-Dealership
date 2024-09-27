@@ -166,6 +166,7 @@
       </div>
     </a>
   </div>
+
 </template>
 
 <script setup>
@@ -179,7 +180,9 @@ const { data: product } = await useFetch(
   `https://dexone.ru/backend_shop/products/${route.params.id}`
 );
 
-
+useSeoMeta({
+  title: () => product.value.brand + " " + product.value.model
+})
 
 //img
 const selectImg = ref([]);

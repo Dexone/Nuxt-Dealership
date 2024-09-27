@@ -89,6 +89,11 @@ import { useProduct } from '../store/productStore';
 const productStore = useProduct();
 const favouriteStore = useFavourite();
 
+useSeoMeta({
+  title: () => "Избранное"
+})
+
+
 const mainInfo = ref();
 async function update() {
   const { data } = await useFetch(`https://dexone.ru/backend_shop/products`);

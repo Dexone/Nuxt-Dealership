@@ -71,6 +71,9 @@ import Filters from '../../src/components/index/filters.vue';
 import { useFilters } from '../../store/filtersStore'
 const filtersStore = useFilters();
 
+useSeoMeta({
+  title: () => "Nuxt-Dealership"
+})
 
 const runtimeConfig = useRuntimeConfig();
 const productStore = useProduct();

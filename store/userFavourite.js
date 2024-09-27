@@ -18,7 +18,6 @@ export const useFavouriteUser = defineStore('favouriteUser', {
         method: 'GET'
       });
       useFavourite().favourite = getData.favourites
-      console.log(getData)
     },
   },
   persist:  {
