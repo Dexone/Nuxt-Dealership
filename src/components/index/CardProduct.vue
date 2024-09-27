@@ -37,8 +37,9 @@
                     В корзине >
                 </button></NuxtLink>
 
-            <button v-if="(Object.keys(productStore.cart)).includes(String(car.id)) === false" @click="addToCart(car)"
-                class="inline-flex items-center px-10 h-10 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+            <button v-if="(Object.keys(productStore.cart)).includes(String(car.id)) === false" @click="addToCart(car), $toast.success('Добавлено в корзину', {
+                position: 'bottom'
+            })" class="inline-flex items-center px-10 h-10 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                 Купить
             </button>
             <span v-if="loader">loader</span>
@@ -82,6 +83,15 @@ const userStore = useUser();
 import { useFavouriteUser } from '../store/userFavourite';
 const userFavourite = useFavouriteUser();
 
+import { useToast } from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+const $toast = useToast();
+
+
+
+
+
+
 const loader = ref(false)
 
 
@@ -96,9 +106,9 @@ function addToCart(value) {
 function addToFavourite(value) {
     loader.value = true
     favouriteStore.addToFavourite(value);
-      setTimeout(() => {
+    setTimeout(() => {
         loader.value = false
-      }, 1000);
+    }, 1000);
 }
 function deleteFromFavourite(value) {
     favouriteStore.deleteFromFavourite(value);

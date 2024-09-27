@@ -13,13 +13,28 @@
           </NuxtLink>
 
           <div class="flex items-center space-x-4 rtl:space-x-reverse font-medium pt-2">
+
+
+
+
             <NuxtLink to="/favourite" @click="page = 2">
-              <svg class="w-[29px] h-[29px] text-gray-700"  xmlns="http://www.w3.org/2000/svg"
+              <button class="relative inline-flex items-center pt-1.5 px-0.5 text-sm font-medium text-center">
+                <svg class="w-[29px] h-[29px] text-gray-700"  xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
               </svg>
+
+
+                <span 
+                  class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-blue-600 border-2 border-white rounded-full -top-2.5 -end-2">
+                  {{ Object.keys(favouriteStore.favourite).length }}
+                </span>
+              </button>
             </NuxtLink>
+
+
+
 
             <NuxtLink to="/cart" @click="page = 3">
               <button class="relative inline-flex items-center pt-1.5 px-0.5 text-sm font-medium text-center">
@@ -80,10 +95,14 @@
 </template>
 
 <script setup>
-import { useProduct } from '../store/productStore';
 import { onMounted } from 'vue';
 import Login from '../src/components/index/login.vue';
+import { useFavourite } from '../store/productFavourite';
+import { useProduct } from '../store/productStore';
 const productStore = useProduct();
+const favouriteStore = useFavourite();
+
+
 
 const page = ref(0);
 
