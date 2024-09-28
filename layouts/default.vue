@@ -3,7 +3,7 @@
     <header>
       <nav class="bg-white border-gray-200 pt-4 px-4 max-w-7xl mx-auto">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl pb-5">
-          <NuxtLink to="/cars/1">
+          <NuxtLink to="/cars">
             <a @click="page = 1" class="flex items-center space-x-3 rtl:space-x-reverse">
               <!-- <img src="../public/car.png" class="h-8" /> -->
               <span v-if="page === 1"
