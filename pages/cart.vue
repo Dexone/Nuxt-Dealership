@@ -23,12 +23,6 @@
       </div>
 
 
-
-
-
-
-
-
       <div class="bg-gray-50  border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full" v-if="Object.keys(productStore.cart).length === 0">
         <div class="font-medium text-lg">Корзина пуста</div>
         <div class="text-gray-500 font-light text-sm">Воспользуйтесь поиском, чтобы найти все, что нужно.</div>
@@ -36,7 +30,7 @@
           чтобы посмотреть список.
          </div>
         <div class="text-gray-500 font-light text-sm">
-          <NuxtLink to="/"><button type="button"
+          <NuxtLink to="/cars"><button type="button"
               class=" bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none ">На
               главную</button>
           </NuxtLink>

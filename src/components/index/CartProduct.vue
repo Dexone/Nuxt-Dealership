@@ -9,7 +9,8 @@
                 </a>
 
                 <a class="inline-block">
-                    <div class="w-full text-lg font-semibold">{{ cart.brand }} {{ cart.model }}</div>
+                    
+                     <NuxtLink :to="`/product/${cart.id}`">  <div class="w-full text-lg font-semibold">{{ cart.brand }} {{ cart.model }}</div> </NuxtLink>
                     <div class="hidden md:block text-gray-500"> {{ cart.year }}г. / {{ cart.power }}л.с. / {{
                         cart.engine }} / {{ cart.transmission }} /
                         {{ cart.kuzov }} / {{ cart.color }}</div>
