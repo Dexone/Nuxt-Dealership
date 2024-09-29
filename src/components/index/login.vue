@@ -1,28 +1,18 @@
 <template>
-
   <div v-if="productStore.user == 1">
     <div v-if="RegOrLogin == 1" class="max-w-80 mx-auto mt-8">
       <div class="mb-5">
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Логин</label>
-        <input
-          placeholder="Dexone"
-          v-model="regLogin"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        />
+        <input placeholder="Dexone" v-model="regLogin"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
       </div>
       <div class="mb-5">
         <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Пароль</label>
-        <input
-          placeholder="•••••••••"
-          v-model="regPass"
-          type="password"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        />
+        <input placeholder="•••••••••" v-model="regPass" type="password"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
       </div>
-      <button
-        @click="registration()"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-      >
+      <button @click="registration()"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
         Зарегистрироваться
       </button>
       <button @click="RegOrLogin = 2" class="ml-3 text-gray-700">Уже есть аккаунт?</button>
@@ -31,25 +21,16 @@
     <div v-if="RegOrLogin == 2" class="max-w-80 mx-auto mt-8">
       <div class="mb-5">
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Логин</label>
-        <input
-          placeholder="Dexone"
-          v-model="enterLogin"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        />
+        <input placeholder="Dexone" v-model="enterLogin"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
       </div>
       <div class="mb-5">
         <label class="block mb-2 text-sm font-medium text-gray-900">Пароль</label>
-        <input
-          placeholder="•••••••••"
-          v-model="enterPass"
-          type="password"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        />
+        <input placeholder="•••••••••" v-model="enterPass" type="password"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
       </div>
-      <button
-        @click="enter()"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-      >
+      <button @click="enter()"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
         Войти
       </button>
       <button @click="RegOrLogin = 1" class="ml-3 text-gray-700">У меня нет аккаунта</button>
@@ -58,77 +39,57 @@
 
   <div class="mx-auto max-w-80" v-if="productStore.user > 1">
 
-      <div class="flex justify-end px-4 pt-8"></div>
-      <div class="flex flex-col items-center pb-10">
-        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/public/user.png" />
-        <h5 class="mb-1 text-xl font-medium text-gray-900">{{ productStore.name }}</h5>
+    <div class="flex justify-end px-4 pt-8"></div>
+    <div class="flex flex-col items-center pb-10">
+      <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/public/user.png" />
+      <h5 class="mb-1 text-xl font-medium text-gray-900">{{ productStore.name }}</h5>
 
-        <div class="flex flex-col items-center" v-if="tfPassword == false">
-          <span class="text-sm text-gray-500">ID аккаунта: {{ productStore.user }}</span>
-          <span class="text-sm text-gray-500"
-            >Товаров в корзине: </span
-          >
-          <span class="text-sm text-gray-500">Сумма товаров: </span>
-          <div class="flex mt-4 md:mt-6">
-            <button
-              @click="productStore.user = 1"
-              class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-            >
-              Выйти
-            </button>
-            <button
-              @click="tfPassword = true"
-              class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-            >
-              Сменить пароль
-            </button>
-          </div>
-
-          <button
-            @click="deleteAccount()"
-            class="py-2 px-14 mt-2 text-sm font-medium focus:outline-none bg-red-50 rounded-lg border border-red-500 text-red-700 hover:bg-red-150 hover:text-red-900 focus:z-10 focus:ring-4 focus:ring-gray-100"
-          >
-            Удалить аккаунт
+      <div class="flex flex-col items-center" v-if="tfPassword == false">
+        <span class="text-sm text-gray-500">ID аккаунта: {{ productStore.user }}</span>
+        <span class="text-sm text-gray-500">Товаров в корзине: {{ productStore.getQuantity }}</span>
+        <span class="text-sm text-gray-500">Сумма товаров: {{ productStore.getCartSumm }} ₽</span>
+        <div class="flex mt-4 md:mt-6">
+          <button @click="productStore.user = 1"
+            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+            Выйти
           </button>
-        </div>
-
-        <div v-if="tfPassword == true">
-          <div class="mb-6">
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900"
-              >Новый пароль</label
-            >
-            <input
-              v-model="newPassword"
-              type="password"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="•••••••••"
-            />
-          </div>
-          <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Повторите пароль</label>
-            <input
-              v-model="newPasswordRepeat"
-              type="password"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="•••••••••"
-            />
-          </div>
-          <button
-            @click="tfPassword = false"
-            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-          >
-            Назад
-          </button>
-          <button
-            @click="editPassword()"
-            class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-          >
+          <button @click="tfPassword = true"
+            class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
             Сменить пароль
           </button>
         </div>
+
+        <button @click="deleteAccount()"
+          class="py-2 px-14 mt-2 text-sm font-medium focus:outline-none bg-red-50 rounded-lg border border-red-500 text-red-700 hover:bg-red-150 hover:text-red-900 focus:z-10 focus:ring-4 focus:ring-gray-100">
+          Удалить аккаунт
+        </button>
+      </div>
+
+      <div v-if="tfPassword == true">
+        <div class="mb-6">
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Новый пароль</label>
+          <input v-model="newPassword" type="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="•••••••••" />
+        </div>
+        <div class="mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Повторите пароль</label>
+          <input v-model="newPasswordRepeat" type="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="•••••••••" />
+        </div>
+        <button @click="tfPassword = false"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+          Назад
+        </button>
+        <button @click="editPassword()"
+          class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
+          Сменить пароль
+        </button>
       </div>
     </div>
- 
+  </div>
+
 
 </template>
 
@@ -158,16 +119,16 @@ async function registration() {
   if (logins.includes(regLogin.value) == false) {
     //если такого логина ещё нет допускается регистрация
     let newId = getData[getData.length - 1].id + 1;
-      const { data } = await $fetch(`https://dexone.ru/backend_shop/users`, {
+    const { data } = await $fetch(`https://dexone.ru/backend_shop/users`, {
       method: 'POST',
       body: { id: newId, login: regLogin.value, pass: regPass.value }
     });
     productStore.user = newId; //задает id пользователя в аккаунте
-      const { data2 } = await $fetch(`https://dexone.ru/backend_shop/cart`, {
+    const { data2 } = await $fetch(`https://dexone.ru/backend_shop/cart`, {
       method: 'POST',
       body: { id: newId, carts: {} }
     }); //создает корзину для нового пользователя
-      const { data3 } = await $fetch(`https://dexone.ru/backend_shop/favourite`, {
+    const { data3 } = await $fetch(`https://dexone.ru/backend_shop/favourite`, {
       method: 'POST',
       body: { id: newId, favourites: {} }
     }); //создает избанное для нового пользователя
@@ -182,7 +143,7 @@ async function registration() {
     regLogin.value = '';
     regPass.value = '';
   }
-} 
+}
 
 
 const enterLogin = ref(); //введенный логин вход
@@ -219,11 +180,11 @@ const newPasswordRepeat = ref();
 async function editPassword() {
 
   if (newPassword.value == newPasswordRepeat.value) { //если пароль и его повтор совпадают
-      const { data } = await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, {
+    const { data } = await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, {
       method: 'PATCH',
       body: { pass: newPassword.value }
     }
-  ); 
+    );
     alert('Успешно');
   } else {
     alert('Пароли не совпадают');
@@ -231,7 +192,7 @@ async function editPassword() {
 }
 
 async function deleteAccount() {
-    await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, { method: 'DELETE' });
+  await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, { method: 'DELETE' });
   await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, { method: 'DELETE' });
   await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
     method: 'DELETE'
@@ -242,7 +203,7 @@ async function deleteAccount() {
 
 async function synchronizationCart() {
   let localData = productStore.cart;
-    const getData = await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
+  const getData = await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
     method: 'GET'
   });
   let editData = getData.carts;
@@ -268,7 +229,7 @@ async function synchronizationCart() {
 
 async function synchronizationFavourite() {
   let localData = favouriteStore.favourite;
-    const getData = await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
+  const getData = await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
     method: 'GET'
   });
   let editData = getData.favourites;
