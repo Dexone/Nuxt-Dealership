@@ -9,7 +9,7 @@
         </div>
       </div>
 
-     
+     123
 
 
       <div class="bg-gray-50 max-w-sm border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full" v-if="Object.keys(productStore.cart).length >0">
