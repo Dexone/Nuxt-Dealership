@@ -219,7 +219,7 @@
 
 
     <!-- login -->
-    <div v-else>
+    <div v-if="key !== 'adminadmin'">
         <form class="max-w-sm mx-auto">
             <label class="block mb-2 text-sm font-medium text-gray-900 ">Электронная почта</label>
             <div class="flex">
