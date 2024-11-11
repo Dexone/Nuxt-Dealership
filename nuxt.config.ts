@@ -12,5 +12,15 @@ export default defineNuxtConfig({
         // }
       }
     }
-  }
+  },
+  server: {
+        proxy: {
+            '/api': {
+                target: 'http://api.server.local',
+                changeOrigin: true
+            }
+        }
+    }
+
+
 })

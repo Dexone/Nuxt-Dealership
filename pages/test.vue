@@ -33,7 +33,7 @@ async function logintest() {
 }
 
 async function addtocard() {
-    const { data } = await useBackData('cart/add', {
+    const { data } = await $fetch('cart/add', {
         method: 'POST',
         body: {
             email: email.value,
