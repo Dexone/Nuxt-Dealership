@@ -2,10 +2,15 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2024-10-23',
-  modules: [
-    '@pinia/nuxt', // needed
-    '@pinia-plugin-persistedstate/nuxt',
-    '@nuxtjs/tailwindcss',
-    '@vueuse/nuxt',
-  ]
+  modules: ['nuxt-api-party', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', '@nuxtjs/tailwindcss', '@vueuse/nuxt', 'nuxt-api-party'],
+  apiParty: {
+    endpoints: {
+      Back: {
+        url: 'http://194.58.121.72:3000',
+        // headers: {
+        //   Authorization: `Bearer ${process.env.JSON_PLACEHOLDER_API_TOKEN}`
+        // }
+      }
+    }
+  }
 })

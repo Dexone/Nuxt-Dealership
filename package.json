@@ -15,6 +15,7 @@
     "@vueform/slider": "^2.1.10",
     "axios": "^1.7.2",
     "nuxt": "^3.12.3",
+    "nuxt-api-party": "^2.1.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "pm2": "^5.4.1",

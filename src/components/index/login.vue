@@ -2,8 +2,8 @@
   <div v-if="productStore.user == 1">
     <div v-if="RegOrLogin == 1" class="max-w-80 mx-auto mt-8">
       <div class="mb-5">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Логин</label>
-        <input placeholder="Dexone" v-model="regLogin"
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Почта</label>
+        <input placeholder="Dexone" v-model="regLogin" type="email"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
       </div>
       <div class="mb-5">
@@ -20,8 +20,8 @@
 
     <div v-if="RegOrLogin == 2" class="max-w-80 mx-auto mt-8">
       <div class="mb-5">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Логин</label>
-        <input placeholder="Dexone" v-model="enterLogin"
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Почта</label>
+        <input placeholder="Dexone" v-model="enterLogin" type="email"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
       </div>
       <div class="mb-5">
