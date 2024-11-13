@@ -70,7 +70,7 @@
       <slot />
     </div>
     <div :class="{ 'hidden': hiddenLogin }"
-      class=" overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full inset-0 h-[calc(100%-1rem)] max-h-[400px] max-w-sm mx-auto mt-36   w-full  bg-white border border-gray-200 rounded-lg shadow  ">
+      class=" fixed  inset-0 h-[calc(100%-1rem)] max-h-[500px] max-w-sm mx-auto mt-36">
 
 
   <button type="button" @click="hiddenLogin = true, blur = false"

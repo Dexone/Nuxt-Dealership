@@ -1,254 +1,57 @@
 <template>
-  <div v-if="productStore.user == 1">
-    <div v-if="RegOrLogin == 1" class="max-w-80 mx-auto mt-8">
-      <div class="mb-5">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Почта</label>
-        <input placeholder="Dexone" v-model="regLogin" type="email"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-      </div>
-      <div class="mb-5">
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Пароль</label>
-        <input placeholder="•••••••••" v-model="regPass" type="password"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-      </div>
-      <button @click="registration()"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-        Зарегистрироваться
-      </button>
-      <button @click="RegOrLogin = 2" class="ml-3 text-gray-700">Уже есть аккаунт?</button>
-    </div>
 
-    <div v-if="RegOrLogin == 2" class="max-w-80 mx-auto mt-8">
-      <div class="mb-5">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Почта</label>
-        <input placeholder="Dexone" v-model="enterLogin" type="email"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-      </div>
-      <div class="mb-5">
-        <label class="block mb-2 text-sm font-medium text-gray-900">Пароль</label>
-        <input placeholder="•••••••••" v-model="enterPass" type="password"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-      </div>
-      <button @click="enter()"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-        Войти
-      </button>
-      <button @click="RegOrLogin = 1" class="ml-3 text-gray-700">У меня нет аккаунта</button>
-    </div>
-  </div>
 
-  <div class="mx-auto max-w-80" v-if="productStore.user > 1">
 
-    <div class="flex justify-end px-4 pt-8"></div>
-    <div class="flex flex-col items-center pb-10">
-      <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/public/user.png" />
-      <h5 class="mb-1 text-xl font-medium text-gray-900">{{ productStore.name }}</h5>
 
-      <div class="flex flex-col items-center" v-if="tfPassword == false">
-        <span class="text-sm text-gray-500">ID аккаунта: {{ productStore.user }}</span>
-        <span class="text-sm text-gray-500">Товаров в корзине: {{ productStore.getQuantity }}</span>
-        <span class="text-sm text-gray-500">Сумма товаров: {{ productStore.getCartSumm }} ₽</span>
-        <div class="flex mt-4 md:mt-6">
-          <button @click="productStore.user = 1"
-            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-            Выйти
-          </button>
-          <button @click="tfPassword = true"
-            class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
-            Сменить пароль
-          </button>
+<div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="space-y-6" action="#">
+        <h5 class="text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h5>
+        <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+            <input v-model="email" type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
         </div>
-
-        <button @click="deleteAccount()"
-          class="py-2 px-14 mt-2 text-sm font-medium focus:outline-none bg-red-50 rounded-lg border border-red-500 text-red-700 hover:bg-red-150 hover:text-red-900 focus:z-10 focus:ring-4 focus:ring-gray-100">
-          Удалить аккаунт
-        </button>
-      </div>
-
-      <div v-if="tfPassword == true">
-        <div class="mb-6">
-          <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Новый пароль</label>
-          <input v-model="newPassword" type="password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="•••••••••" />
+        <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+            <input v-model="password" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
         </div>
-        <div class="mb-6">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Повторите пароль</label>
-          <input v-model="newPasswordRepeat" type="password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="•••••••••" />
+        <div class="flex items-start">
+            <div class="flex items-start">
+                <div class="flex items-center h-5">
+                    <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+                </div>
+                <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+            </div>
+            <a href="#" class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
         </div>
-        <button @click="tfPassword = false"
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-          Назад
-        </button>
-        <button @click="editPassword()"
-          class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
-          Сменить пароль
-        </button>
+        <button @click="logintest" type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
+        <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+            Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
+        </div>
       </div>
-    </div>
-  </div>
+</div>
+
 
 
 </template>
 
 <script setup>
-import { useProduct } from '../store/productStore';
-const productStore = useProduct();
-import { useFavourite } from '../store/productFavourite';
-const favouriteStore = useFavourite();
-
-import { useUser } from '../store/userStore';
-const userStore = useUser();
-
-import { useFavouriteUser } from '../store/userFavourite';
-const userFavourite = useFavouriteUser();
 
 
-const RegOrLogin = ref(1); //выбор вход или регистрация
+const email = ref("dm346@mail.ru");
+const password = ref("12345678");
 
-const regLogin = ref(); //введенный логин в регистрации
-const regPass = ref(); //введенный пароль в регистрации
-async function registration() {
-  const getData = await $fetch(`https://dexone.ru/backend_shop/users`, { method: 'GET' });
-  let logins = []; //массив логинов
-  for (let i = 0; i < getData.length; i++) {
-    logins.push(getData[i].login); //пуш логинов
-  }
-  if (logins.includes(regLogin.value) == false) {
-    //если такого логина ещё нет допускается регистрация
-    let newId = getData[getData.length - 1].id + 1;
-    const { data } = await $fetch(`https://dexone.ru/backend_shop/users`, {
-      method: 'POST',
-      body: { id: newId, login: regLogin.value, pass: regPass.value }
-    });
-    productStore.user = newId; //задает id пользователя в аккаунте
-    const { data2 } = await $fetch(`https://dexone.ru/backend_shop/cart`, {
-      method: 'POST',
-      body: { id: newId, carts: {} }
-    }); //создает корзину для нового пользователя
-    const { data3 } = await $fetch(`https://dexone.ru/backend_shop/favourite`, {
-      method: 'POST',
-      body: { id: newId, favourites: {} }
-    }); //создает избанное для нового пользователя
-    productStore.name = regLogin.value; //логин в локальное хранилище
-
-
-    userStore.syncFromCartToServer() //отправка локальной корзины на сервер
-    userFavourite.syncFromFavouriteToServer() //отправка локального избранного на сервер
-
-  } else {
-    alert('Пользователь с таким логином уже существует');
-    regLogin.value = '';
-    regPass.value = '';
-  }
-}
-
-
-const enterLogin = ref(); //введенный логин вход
-const enterPass = ref(); //введенный пароль вход
-async function enter() {
-  const getData = await $fetch(`https://dexone.ru/backend_shop/users`, { method: 'GET' });
-  let logins = []; //создан массив логинов
-  let passes = []; //создан массив паролей
-  for (let i = 0; i < getData.length; i++) {
-    logins.push(getData[i].login); //пуш логинов с сервера в массив
-    passes.push(getData[i].pass); //пуш паролей с сервера в массив
-  }
-
-  let indexLogin = logins.indexOf(enterLogin.value); //поиск введенного логина в массиве и возврат индекса, если найден
-  if (indexLogin > 0 && enterPass.value == passes[indexLogin]) {
-    // if индекс логина больше 0 и введенный пароль равен паролю с индексом логина в списке паролей разрешен вход
-    productStore.user = indexLogin + 1;
-    productStore.name = enterLogin.value;
-
-    userStore.syncFromServerToCart() //получение корзины с сервера в локальную
-    userFavourite.syncFromServerToFavourite() //получение избранного с сервера в локальное
-  } else {
-    // if индекс логина и пароля не совпадает >> productStore.user = 1, т.е. гость
-    alert('неверный логин или пароль');
-    productStore.user = 1;
-    enterLogin.value = '';
-    enterPass.value = '';
-  }
-}
-
-const tfPassword = ref(false); //для v-if окна смены пароля
-const newPassword = ref();
-const newPasswordRepeat = ref();
-async function editPassword() {
-
-  if (newPassword.value == newPasswordRepeat.value) { //если пароль и его повтор совпадают
-    const { data } = await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, {
-      method: 'PATCH',
-      body: { pass: newPassword.value }
-    }
-    );
-    alert('Успешно');
-  } else {
-    alert('Пароли не совпадают');
-  }
-}
-
-async function deleteAccount() {
-  await $fetch(`https://dexone.ru/backend_shop/users/${productStore.user}`, { method: 'DELETE' });
-  await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, { method: 'DELETE' });
-  await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
-    method: 'DELETE'
+async function logintest() {
+  const { data } = await useBackData("register", {
+    method: "POST",
+    body: {
+      email: email.value,
+      password: password.value,
+    },
   });
-  productStore.user = 1;
-  productStore.editQuantity();
+  console.log(data)
+  console.log(data.value.access_token);
+  // localStorage.setItem("token", data.value.access_token);
 }
 
-async function synchronizationCart() {
-  let localData = productStore.cart;
-  const getData = await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
-    method: 'GET'
-  });
-  let editData = getData.carts;
 
-  let keysLocal = Object.keys(localData); //ключи из объектов в один массив
-  let keysUser = Object.keys(editData); //ключи из объектов в один массив
-
-  for (let i = 0; i < keysLocal.length; i++) {
-    // TODO foreach и find
-    let search = keysUser.includes(keysLocal[i]);
-    if (search == true) {
-      console.log('Ничего не делать');
-    } else {
-      editData[keysLocal[i]] = localData[keysLocal[i]];
-    }
-  }
-  await $fetch(`https://dexone.ru/backend_shop/cart/${productStore.user}`, {
-    method: 'PATCH',
-    body: { carts: editData }
-  });
-  productStore.cart = {};
-}
-
-async function synchronizationFavourite() {
-  let localData = favouriteStore.favourite;
-  const getData = await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
-    method: 'GET'
-  });
-  let editData = getData.favourites;
-
-  let keysLocal = Object.keys(localData); //ключи из объектов в один массив
-  let keysUser = Object.keys(editData); //ключи из объектов в один массив
-
-  for (let i = 0; i < keysLocal.length; i++) {
-    let search = keysUser.includes(keysLocal[i]);
-    if (search == true) {
-      console.log('Ничего не делать');
-    } else {
-      editData[keysLocal[i]] = localData[keysLocal[i]];
-    }
-  }
-  await $fetch(`https://dexone.ru/backend_shop/favourite/${productStore.user}`, {
-    method: 'PATCH',
-    body: { favourites: editData }
-  });
-  favouriteStore.favourite = {};
-}
 </script>
