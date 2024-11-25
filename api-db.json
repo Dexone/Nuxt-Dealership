@@ -1,0 +1,398 @@
+[
+      {
+        "brand": "Kia",
+        "modelCar": "Carnival",
+        "year": "2022",
+        "power": "249",
+        "bodyCar": "Кроссвэн",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Красный",
+        "price": 4934900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_carnival/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_carnival/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_carnival/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_carnival/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_carnival/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Ceed",
+        "year": "2022",
+        "power": "128",
+        "bodyCar": "Хэтчбек",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Черный",
+        "price": 2614900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Ceed SW",
+        "year": "2022",
+        "power": "128",
+        "bodyCar": "Универсал",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Черный",
+        "price": 3194900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed_cw/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed_cw/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed_cw/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed_cw/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ceed_cw/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Cerato",
+        "year": "2022",
+        "power": "128",
+        "bodyCar": "Седан",
+        "transmission": "МКПП",
+        "engine": "Бензин",
+        "color": "Серый",
+        "price": 2970000,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_cerato/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_cerato/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_cerato/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_cerato/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_cerato/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "K5",
+        "year": "2022",
+        "power": "150",
+        "bodyCar": "Седан",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Белый",
+        "price": 2734900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ks/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ks/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ks/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ks/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_ks/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "K9",
+        "year": "2022",
+        "power": "249",
+        "bodyCar": "Седан",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Черный",
+        "price": 7374900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_k9/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_k9/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_k9/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_k9/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_k9/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Rio X",
+        "year": "2022",
+        "power": "123",
+        "bodyCar": "Хэтчбек",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Коричневый",
+        "price": 2545900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_rio_x/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_rio_x/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_rio_x/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_rio_x/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_rio_x/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Seltos",
+        "year": "2022",
+        "power": "149",
+        "bodyCar": "Кроссовер",
+        "transmission": "Вариатор",
+        "engine": "Бензин",
+        "color": "Синий",
+        "price": 2799900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_seltos/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_seltos/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_seltos/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_seltos/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_seltos/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Sorento",
+        "year": "2022",
+        "power": "179",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Красный",
+        "price": 4344900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sorento/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sorento/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sorento/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sorento/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sorento/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Soul",
+        "year": "2022",
+        "power": "123",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Синий",
+        "price": 2204900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_soll/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_soll/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_soll/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_soll/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_soll/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Sportage",
+        "year": "2022",
+        "power": "190",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Черный",
+        "price": 4823200,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sportage/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sportage/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sportage/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sportage/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_sportage/5.webp"
+        }
+      },
+      {
+        "brand": "Kia",
+        "modelCar": "Stinger",
+        "year": "2022",
+        "power": "247",
+        "bodyCar": "Седан",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Синий",
+        "price": 5374900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_stinger/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_stinger/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_stinger/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_stinger/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/kia_stinger/5.webp"
+        }
+      },
+      {
+        "brand": "Volkswagen",
+        "modelCar": "Tiguan",
+        "year": "2024",
+        "power": "150",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Черный",
+        "price": 4950000,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/volkswagen_tiguan/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/volkswagen_tiguan/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/volkswagen_tiguan/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/volkswagen_tiguan/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/volkswagen_tiguan/5.webp"
+        }
+      },
+      {
+        "brand": "Hyundai",
+        "modelCar": "Solaris",
+        "year": "2022",
+        "power": "123",
+        "bodyCar": "Седан",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Красный",
+        "price": 2108000,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_solaris/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_solaris/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_solaris/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_solaris/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_solaris/5.webp"
+        }
+      },
+      {
+        "brand": "BMW",
+        "modelCar": "X7",
+        "year": "2023",
+        "power": "340",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Белый",
+        "price": 9350000,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x7/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x7/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x7/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x7/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x7/5.webp"
+        }
+      },
+      {
+        "brand": "BMW",
+        "modelCar": "X6",
+        "year": "2023",
+        "power": "530",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Серый",
+        "price": 8400000,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x6/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x6/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x6/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x6/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x6/5.webp"
+        }
+      },
+      {
+        "brand": "BMW",
+        "modelCar": "X2",
+        "year": "2023",
+        "power": "192",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Дизель",
+        "color": "Синий",
+        "price": 3520000,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x2/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x2/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x2/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x2/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_x2/5.webp"
+        }
+      },
+      {
+        "brand": "BMW",
+        "modelCar": "3",
+        "year": "2023",
+        "power": "190",
+        "bodyCar": "Седан",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Белый",
+        "price": 3930000,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_320i/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_320i/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_320i/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_320i/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_320i/5.webp"
+        }
+      },
+      {
+        "brand": "BMW",
+        "modelCar": "7",
+        "year": "2023",
+        "power": "280",
+        "bodyCar": "Седан",
+        "transmission": "АКПП",
+        "engine": "Электро",
+        "color": "Синий",
+        "price": 11090000,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_740i/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_740i/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_740i/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_740i/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/bmw_740i/5.webp"
+        }
+      },
+      {
+        "brand": "Hyundai",
+        "modelCar": "Creta",
+        "year": "2022",
+        "power": "123",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Красный",
+        "price": 2904900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_creta/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_creta/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_creta/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_creta/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_creta/5.webp"
+        }
+      },
+      {
+        "brand": "Hyundai",
+        "modelCar": "Tucson",
+        "year": "2022",
+        "power": "186",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Серый",
+        "price": 4449900,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_tucson/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_tucson/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_tucson/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_tucson/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_tucson/5.webp"
+        }
+      },
+      {
+        "brand": "Hyundai",
+        "modelCar": "Santa FE",
+        "year": "2022",
+        "power": "180",
+        "bodyCar": "Кроссовер",
+        "transmission": "АКПП",
+        "engine": "Бензин",
+        "color": "Серый",
+        "price": 5320800,
+        "image": {
+          "1": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_santa_fe/1.webp",
+          "2": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_santa_fe/2.webp",
+          "3": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_santa_fe/3.webp",
+          "4": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_santa_fe/4.webp",
+          "5": "https://raw.githubusercontent.com/isakura313/static_photo/refs/heads/main/webp/hyundai_santa_fe/5.webp"
+        }
+      }
+    ]
