@@ -1,10 +1,10 @@
 <template>
     <h5 class="mb-1 text-xl font-medium text-gray-900 ml-4 pt-4">
-        <NuxtLink :to="`/product/${car.id}`"> {{ car.brand }} {{ car.model }} </NuxtLink>
+        <NuxtLink :to="`/product/${car.id}`"> {{ car.brand }} {{ car.modelCar }} </NuxtLink>
     </h5>
     <p class="text-sm text-gray-500 ml-4 mr-4 h-10">
         {{ car.year }}г. / {{ car.power }}л.с. / {{ car.engine }} / {{ car.transmission }} /
-        {{ car.kuzov }} / {{ car.color }}
+        {{ car.bodyCar }} / {{ car.color }}
     </p>
 
     <div class="flex flex-col items-center h-48">
@@ -126,7 +126,6 @@ const userFavourite = useFavouriteUser();
 import { useToast } from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 const $toast = useToast();
-
 
 
 const loaderCart = ref(false)
