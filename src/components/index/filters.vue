@@ -1,4 +1,5 @@
 <template>
+  {{ filtersStore.search }}
   <a class="block relative p-6 bg-gray-50 border border-gray-200 rounded-lg shadow mx-5">
 
     <div class="min-w-72 mt-2 mr-2 inline-block">
