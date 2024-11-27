@@ -1,5 +1,8 @@
 <template>
-
+  <main class="bg-white max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto mb-3">
+      <Filters />
+    </div>
 
 
 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow inline-block m-5"
@@ -35,13 +38,14 @@
 
 
 
-
+  </main>
 </template>
 
 
 <script setup>
 import { ref } from 'vue';
 import CardProduct from '@/src/components/index/CardProduct.vue'
+import filters from '@/src/components/index/filters.vue';
 
 const mainInfo = ref();
 const meta = ref({"last_page": 0 }) //данные пагинации
