@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   apiParty: {
     endpoints: {
       Back: {
-        url: "http://194.58.121.72:3000",
+        url: "https://dexone.ru",
         // headers: {
         //   Authorization: `Bearer ${process.env.JSON_PLACEHOLDER_API_TOKEN}`
         // }
@@ -24,9 +24,9 @@ export default defineNuxtConfig({
     server: {
       proxy: {
         "/api": {
-          target: "http://194.58.121.72:3000",
+          target: "https://dexone.ru",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          // rewrite: (path) => path.replace(/^\/api/, ""),
         },
       },
     },

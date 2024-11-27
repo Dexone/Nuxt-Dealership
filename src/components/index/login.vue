@@ -92,19 +92,19 @@ const selectorloginreg = ref(true)
 const regemail = ref("");
 const regpassword = ref("");
 
-async function register() {
-  const res = await $fetch('https://dexone.ru/api/register', {
-    method: "POST",
-    body: {
-      email: regemail.value,
-      password: regpassword.value,
-    },
-  });
-  console.log(res)
-  enteremail.value =  regemail.value
-  enterpassword.value =  regpassword.value
-  login()
-}
+// async function register() {
+//   const res = await $fetch('https://dexone.ru/api/register', {
+//     method: "POST",
+//     body: {
+//       email: regemail.value,
+//       password: regpassword.value,
+//     },
+//   });
+//   console.log(res)
+//   enteremail.value =  regemail.value
+//   enterpassword.value =  regpassword.value
+//   login()
+// }
 
 
 
@@ -113,12 +113,16 @@ async function register() {
 const enteremail = ref("test@mail.ru");
 const enterpassword = ref("12345678");
 async function login() {
-  const res = await $fetch('https://dexone.ru/api/login', {
+  const res = await $fetch('/api/login', {
+    // const res = await $fetch('https://dexone.ru/api/login', {
     method: "POST",
+    
     body: {
       email: enteremail.value,
       password: enterpassword.value,
+      
     },
+    
   });
   state.value.email = enteremail.value
   state.value.token = res.access_token

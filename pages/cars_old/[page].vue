@@ -71,11 +71,11 @@ const filtersStore = useFilters();
 
 
 
-definePageMeta({
-  alias: '/cars'
-})
-if(route.href==="/cars"){ //для пагинации
-  route.params.page = 1}
+// definePageMeta({
+//   alias: '/cars'
+// })
+// if(route.href==="/cars"){ //для пагинации
+//   route.params.page = 1}
 
 
 
