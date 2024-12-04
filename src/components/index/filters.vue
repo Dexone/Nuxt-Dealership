@@ -1,96 +1,100 @@
 <template>
-  {{ filtersStore.search }}
+{{ params }}
+{{searchParams}}
   <a class="block relative p-6 bg-gray-50 border border-gray-200 rounded-lg shadow mx-5">
 
     <div class="min-w-72 mt-2 mr-2 inline-block">
       <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Марка:</label>
-      <Multiselect v-model="brands" :options="optionsBrands" @change="model=undefined" placeholder="Любая" mode="single"
-        class="multiselect-blue" />
+      <Multiselect v-model="searchParams.brand" :options="Object.keys(params.brands)" @change="searchParams.modelCar = null"  placeholder="Любая"
+        mode="single" class="multiselect-blue" />
     </div>
 
     <div class="min-w-72 mt-2 mr-2 inline-block">
       <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Модель:</label>
-      <Multiselect v-if="brands === undefined || brands === null" v-model="model" :options="compareBrands[brands]"
-        placeholder="Любая" mode="single" class="multiselect-blue" disabled="false" />
-      <Multiselect v-else v-model="model" :options="compareBrands[brands]" placeholder="Любой" mode="single"
-        class="multiselect-blue" />
+      <Multiselect v-if="searchParams.brand === null"  v-model="searchParams.modelCar" :options="params.brands[searchParams.brand]" placeholder="Любая" mode="single"
+        class="multiselect-blue" disabled="false" />
+        <Multiselect v-if="searchParams.brand !== null"  v-model="searchParams.modelCar" :options="params.brands[searchParams.brand]" placeholder="Любая" mode="single"
+        class="multiselect-blue"  />
+    </div>
+
+
+    <div class="min-w-72 mt-2 mr-2 inline-block">
+      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Кузов:</label>
+      <Multiselect v-model="searchParams.bodyCar" :options="params.bodyCar"
+        placeholder="Любой" mode="tags" class="multiselect-blue" />
     </div>
 
 
 
     <div class="min-w-72 mt-2 mr-2 inline-block">
-      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Кузов:</label>
-      <Multiselect v-model="kuzov" :options="['Кроссвэн', 'Хэтчбек', 'Универсал', 'Седан', 'Кроссовер']"
-        placeholder="Любой" mode="tags" class="multiselect-blue" />
-    </div>
-
-    <a :class="{ 'hidden': hiddenFilters }">
-
-
-
-      <div class="min-w-72 mt-2 mr-2 inline-block">
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Трансмиссия:</label>
-        <Multiselect v-model="kpp" :options="['АКПП', 'МКПП', 'Вариатор']" placeholder="Любая" mode="tags"
+        <Multiselect v-model="searchParams.transmission" :options="params.transmission" placeholder="Любая" mode="tags"
           class="multiselect-blue" />
       </div>
 
+
+
+
       <form class="w-72 mt-2 mr-2 inline-block">
         <label class="block mb-2 text-sm font-medium text-gray-900">Мощность двигателя:</label>
-        <div>
-          <Slider :tooltips="false" v-model="sliderPower" @input="ffSliderPower()" class="slider-blue  ml-5 mr-5"
-            :step="10" :min="100" :max="550" :lazy="false" />
-        </div>
+        <!-- <div>
+          <Slider :tooltips="false" v-model="searchParams.power" class="slider-blue  ml-5 mr-5"
+            :step="10" :min="params.power[0]" :max="params.power[1]" :lazy="false" />
+        </div> -->
         <div class="flex">
-          <input v-model="powerVM[0]"
+          <input   v-model="searchParams.power[0]" :placeholder="params.power[0]"
             class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
             placeholder="Цена от">
           </input>
-          <input type="text" v-model="powerVM[1]"
+          <input v-model="searchParams.power[1]" :placeholder="params.power[1]"
             class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
             placeholder="Цена до">
         </div>
       </form>
 
+
       <div class="min-w-72 mt-2 mr-2 inline-block">
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Двигатель:</label>
-        <Multiselect v-model="engine" :options="['Бензин', 'Дизель', 'Электро']" placeholder="Любой" mode="tags"
+        <Multiselect v-model="searchParams.engine" :options="params.engine" placeholder="Любой" mode="tags"
           class="multiselect-blue" />
       </div>
+
+
+
+
+
+
 
       <form class="w-72 inline-block mr-2">
         <label class="block mb-2 text-sm font-medium text-gray-900">Цена:</label>
 
-        <div>
+        <!-- <div>
           <Slider :step="100000" :tooltips="false" v-model="sliderPrice" @input="ffSliderPrice()"
             class="slider-blue ml-5 mr-5" :min="2000000" :max="12000000" :lazy="false" />
-        </div>
+        </div> -->
 
         <div class="flex">
-          <input v-model="otPrice"
+          <input v-model="searchParams.price[0]" :placeholder="params.price[0]"
             class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
             placeholder="Цена от">
           </input>
-          <input v-model="doPrice"
+          <input v-model="searchParams.price[1]" :placeholder="params.price[1]"
             class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
             placeholder="Цена до">
         </div>
       </form>
 
+
+
       <div class="min-w-72 mt-2 mr-2 inline-block">
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Цвет:</label>
-        <Multiselect v-model="colorsVM"
-          :options="['Черный', 'Красный', 'Серый', 'Белый', 'Коричневый', 'Синий', 'Серебристый']" placeholder="Любой"
+        <Multiselect v-model="searchParams.color" 
+          :options="params.color" placeholder="Любой"
           mode="tags" class="multiselect-blue" />
       </div>
 
 
-    </a>
-    <button class="text-blue-600 mt-2" @click="hiddenFilters = !hiddenFilters"><a v-if="hiddenFilters === true">Показать
-        еще</a>
-      <a v-if="hiddenFilters === false">Скрыть</a></button>
 
-
-    <button class="text-gray-600 mt-2 ml-2" @click="reset()">Сбросить</button>
 
   </a>
 </template>
@@ -98,120 +102,77 @@
 <script setup>
 import axios from 'axios'
 import { useFilters } from '../../../store/filtersStore';
-const filtersStore = useFilters();
-defineProps({
-  type: Object,
-  required: true
-})
-
-const hiddenFilters = ref(true)
 
 
-const otPrice = ref()
-const doPrice = ref()
-const otPriceVM = ref(2000000)
-const doPriceVM = ref(12000000)
-const sliderPrice = ref([2000000, 12000000]) //слайдер цены
-function ffSliderPrice() { //текстовое значение присваивается слайдеру
-  otPrice.value = String(sliderPrice.value[0])
-  doPrice.value = String(sliderPrice.value[1])
-}
-watch(otPrice, () => {
-  otPrice.value = Number(otPrice.value.replace(/\D/g, '')).toLocaleString();
-  otPriceVM.value = (Number(otPrice.value.replace(/\D/g, '')))
-  searchPush()
-})
-watch(doPrice, () => {
-  doPrice.value = Number(doPrice.value.replace(/\D/g, '')).toLocaleString();
-  doPriceVM.value = (Number(doPrice.value.replace(/\D/g, '')))
-  searchPush()
-})
-
-const powerVM = ref([100, 550])
-const colorsVM = ref([])
-
-const kpp = ref([])
-const kuzov = ref([])
-const engine = ref([])
-
-const brands = ref()
-const model = ref()
-
-const sliderPower = ref([100, 550]) //слайдер мощности
-function ffSliderPower() { //текстовое значение присваивается слайдеру
-  powerVM.value[0] = sliderPower.value[0]
-  powerVM.value[1] = sliderPower.value[1]
-}
-
-const compareBrands = ref({})
-const optionsBrands = ref()
-
-function ffOptions() {
-  axios.get(`https://dexone.ru/backend_shop/products`).then((res) => {
-    let brand = []
-    for (let i = 0; i < res.data.length; i++) {
-      brand.push(res.data[i].brand)
-
-    }
-    optionsBrands.value = [...new Set(brand)]
-    for (let i = 0; i < optionsBrands.value.length; i++) { // Brand : []
-      compareBrands.value[optionsBrands.value[i]] = []
-    }
-    for (let i = 0; i < res.data.length; i++) { // Brand : ['Model1', 'Model2', ...]
-      compareBrands.value[res.data[i].brand].push(res.data[i].model)
-    }
-  })
-
-}
-ffOptions()
-
-// let search = inject("search")
-function searchPush() { //строка поиска
-  filtersStore.search = []
-  for (let i = 0; i < colorsVM.value.length; i++) {
-    filtersStore.search.push("&color=" + colorsVM.value[i])
-  }
-  filtersStore.search.push("&power_gte=" + powerVM.value[0] + "&power_lte=" + powerVM.value[1])
-  filtersStore.search.push("&price_gte=" + otPriceVM.value + "&price_lte=" + doPriceVM.value)
-  for (let i = 0; i < engine.value.length; i++) {
-    filtersStore.search.push("&engine=" + engine.value[i])
-  }
-  for (let i = 0; i < kpp.value.length; i++) {
-    filtersStore.search.push("&transmission=" + kpp.value[i])
-  }
-  for (let i = 0; i < kpp.value.length; i++) {
-    filtersStore.search.push("&transmission=" + kpp.value[i])
-  }
-  for (let i = 0; i < kuzov.value.length; i++) {
-    filtersStore.search.push("&kuzov=" + kuzov.value[i])
-  }
-
-  if (brands.value != undefined) {
-    filtersStore.search.push("&brand=" + brands.value)
-  }
-
-  if (model.value != undefined || model.value != null) {
-    filtersStore.search.push("&model=" + model.value)
+const params = ref({ brands: {}, bodyCar: [], transmission: [], engine: [], color: [], power: [999, 0], price: [99999999, 0] }) //объекты параметров, доступных для выбора
+async function getproducts() { //наполнение объектов парметрами, доступными для выбора
+  const res = await $fetch(`/api/products`, { //запрос количества страниц
+    method: "GET",
+  });
+  for (let i = 1; i <= res.meta.last_page; i++) { //получение всех products на всех страницах
+    const res = await $fetch(`/api/products?page=${i}`, {
+      method: "GET",
+    });
+    res.existingProduct.map((item, index) => {
+      if (Object.keys(params.value.brands).includes(item.brand) === false) { //пуш объектов только уникальных марок
+        params.value.brands[item.brand] = []
+      }
+      if (params.value.brands[item.brand].includes(item.modelCar) === false) { //пуш объектов только уникальных моделей
+        params.value.brands[item.brand].push(item.modelCar)
+      }
+      if (params.value.bodyCar.includes(item.bodyCar) === false) { //пуш объектов только уникальных кузовов
+        params.value.bodyCar.push(item.bodyCar)
+      }
+      if (params.value.transmission.includes(item.transmission) === false) { //пуш объектов только уникальных трансмиссий
+        params.value.transmission.push(item.transmission)
+      }
+      if (params.value.engine.includes(item.engine) === false) { //пуш объектов только уникальных трансмиссий
+        params.value.engine.push(item.engine)
+      }
+      if (params.value.color.includes(item.color) === false) { //пуш объектов только уникальных  цветов
+        params.value.color.push(item.color)
+      }
+      if (params.value.power[0] > item.power) { //пуш минимальной мощности
+        params.value.power[0] = item.power
+      }
+      if (params.value.power[1] < item.power) { //пуш максимальной мощности
+        params.value.power[1] = item.power
+      }
+      if (params.value.price[0] > item.price) { //пуш минимальной цены
+        params.value.price[0] = item.price
+      }
+      if (params.value.price[1] < item.price) { //пуш максимальной цены
+        params.value.price[1] = item.price
+      }
+    })
   }
 }
-
-function reset() { //сброс всех фильтров
-  brands.value = undefined
-  model.value = undefined
-  kuzov.value = []
-  kpp.value = []
-  sliderPower.value = [100, 550]
-  ffSliderPower()
-  engine.value = []
-  sliderPrice.value = [2000000, 12000000]
-  ffSliderPrice()
-  colorsVM.value = []
-}
+getproducts()
 
 
-watch([colorsVM, powerVM.value, kuzov, kpp, brands, engine, model], () => {
-  searchPush()
-})
+
+const searchParams = ref({ brand: null, modelCar: null, bodyCar: [], transmission: [], power: ["", ""], engine: [], price: ["", ""], color: []}) //объекты выбранных параметров
+
+const searchString = ref("")
+
+watch(searchParams.value, () => {
+  //todo сделать заполнение строки поиска
+});
+
+
+
+// setTimeout(() => { //фикс бага, когда слайдер берет максимальное значение мощности только с первой страницы
+//   searchParams.value.power = params.value.power
+// }, 500);
+
+
+
+
+
+
+
+
+
 </script>
 
 <style>

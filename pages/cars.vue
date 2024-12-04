@@ -1,8 +1,8 @@
 <template>
   <main class="bg-white max-w-7xl mx-auto">
-    <!-- <div class="max-w-7xl mx-auto mb-3">
+    <div class="max-w-7xl mx-auto mb-3">
       <Filters />
-    </div> -->
+    </div>
 
 
 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow inline-block m-5"
@@ -26,7 +26,6 @@
       <a  class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">Следующая</a>
     </button>
   </div>
-
 
 
 

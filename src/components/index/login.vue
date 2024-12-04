@@ -1,15 +1,13 @@
 <template>
 
-  <div v-if="state.email !== undefined && state.token !== undefined">
-    <div class="mt-20"> {{ state.email }}</div>
+  <div v-if="userStore.email !== '' && userStore.token !== ''">
+    <div class="mt-20"> {{ userStore.email }}</div>
     <button @click=exit type="submit"
       class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4">Выйти</button>
 
   </div>
-
-
   <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 "
-    v-if="state.email === undefined && state.token === undefined">
+    v-if="userStore.email === '' && userStore.token === ''">
     <div class="space-y-6">
       <h5 class="text-xl font-medium text-gray-900 ">Авторизация</h5>
 
@@ -78,60 +76,53 @@
     </div>
   </div>
 
-
 </template>
 
 <script setup>
 import { useStorage } from '@vueuse/core'
-
-const state = useStorage('vue-token', { email: undefined, token: undefined })
-const selectorloginreg = ref(true)
-
+import { useUser } from '../store/userStore';
+const userStore = useUser();
 
 
-const regemail = ref("");
+// const state = useStorage('vue-token', { email: undefined, token: undefined })
+const selectorloginreg = ref(true) //reg or login
+
+
+const regemail = ref(""); //registration
 const regpassword = ref("");
-
-// async function register() {
-//   const res = await $fetch('https://dexone.ru/api/register', {
-//     method: "POST",
-//     body: {
-//       email: regemail.value,
-//       password: regpassword.value,
-//     },
-//   });
-//   console.log(res)
-//   enteremail.value =  regemail.value
-//   enterpassword.value =  regpassword.value
-//   login()
-// }
-
-
-
-
-
-const enteremail = ref("test@mail.ru");
-const enterpassword = ref("12345678");
-async function login() {
-  const res = await $fetch('/api/login', {
-    // const res = await $fetch('https://dexone.ru/api/login', {
+async function register() {
+  const res = await $fetch('/api/register', {
     method: "POST",
-    
     body: {
-      email: enteremail.value,
-      password: enterpassword.value,
-      
+      email: regemail.value,
+      password: regpassword.value,
     },
-    
   });
-  state.value.email = enteremail.value
-  state.value.token = res.access_token
+  console.log(res)
+  enteremail.value =  regemail.value
+  enterpassword.value =  regpassword.value
+  login()
 }
 
 
-function exit() {
-  state.value.email = undefined
-  state.value.token = undefined
+const enteremail = ref("test@mail.ru"); //login
+const enterpassword = ref("12345678");
+async function login() {
+  const res = await $fetch('/api/login', {
+    method: "POST",
+    body: {
+      email: enteremail.value,
+      password: enterpassword.value,
+    },
+  });
+  userStore.email = enteremail.value
+  userStore.token = res.access_token
+}
+
+
+function exit() { //exit
+  userStore.email = ''
+  userStore.token = ''
 }
 
 

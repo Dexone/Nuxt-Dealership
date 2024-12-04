@@ -2,23 +2,14 @@ import { defineStore } from 'pinia';
 import { useProduct } from './productStore';
 
 export const useUser = defineStore('userStore', {
-  state: () => ({ userInfo: {} }),
+  state: () => ({ token: "", email: "" }),
   getters: {
-    getUserInfo: (state) => state.userInfo
+    getToken: (state) => state.token,
+    getEmail: (state) => state.email
   },
   actions: {
     async syncFromCartToServer() {
-      await $fetch(`https://dexone.ru/backend_shop/cart/${useProduct().user}`, {
-        method: 'PATCH',
-        body: { carts: useProduct().cart }
-      }); //синхронизация локальной корзины с сервером
-    },
 
-    async syncFromServerToCart() {
-      const getData = await $fetch(`https://dexone.ru/backend_shop/cart/${useProduct().user}`, {
-        method: 'GET'
-      });
-      useProduct().cart = getData.carts
     },
   },
   persist:  {
