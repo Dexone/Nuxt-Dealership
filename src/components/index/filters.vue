@@ -1,6 +1,8 @@
 <template>
-{{ params }}
+<!-- {{ params }} -->
+{{ searchString }}
 {{searchParams}}
+
   <a class="block relative p-6 bg-gray-50 border border-gray-200 rounded-lg shadow mx-5">
 
     <div class="min-w-72 mt-2 mr-2 inline-block">
@@ -156,7 +158,7 @@ const searchParams = ref({ brand: null, modelCar: null, bodyCar: [], transmissio
 const searchString = ref("")
 
 watch(searchParams.value, () => {
-  //todo сделать заполнение строки поиска
+createString()
 });
 
 
@@ -168,7 +170,41 @@ watch(searchParams.value, () => {
 
 
 
+function createString(){ //формирование поисковой строки
+  searchString.value = ""
+  if(searchParams.value.brand !== null){
+    searchString.value = searchString.value + "brand=" + searchParams.value.brand + "&"
+  }
+  if(searchParams.value.modelCar !== null){
+    searchString.value = searchString.value + "modelCar=" + searchParams.value.modelCar + "&"
+  }
 
+  if(searchParams.value.bodyCar.length !== 0){
+    searchParams.value.bodyCar.forEach(element => {
+      searchString.value = searchString.value + "bodyCar=" + element + "&"
+    });
+  }
+  if(searchParams.value.transmission.length !== 0){
+    searchParams.value.transmission.forEach(element => {
+      searchString.value = searchString.value + "transmission=" + element + "&"
+    });
+  }
+
+  if(searchParams.value.engine.length !== 0){
+    searchParams.value.engine.forEach(element => {
+      searchString.value = searchString.value + "engine=" + element + "&"
+    });
+  }
+
+  if(searchParams.value.color.length !== 0){
+    searchParams.value.color.forEach(element => {
+      searchString.value = searchString.value + "color=" + element + "&"
+    });
+  }
+
+  
+
+}
 
 
 
