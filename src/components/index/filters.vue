@@ -1,5 +1,6 @@
 <template>
 <!-- {{ params }} -->
+  {{sliderPower}}
 {{ searchString }}
 {{searchParams}}
 
@@ -39,10 +40,12 @@
 
       <form class="w-72 mt-2 mr-2 inline-block">
         <label class="block mb-2 text-sm font-medium text-gray-900">Мощность двигателя:</label>
-        <!-- <div>
-          <Slider :tooltips="false" v-model="searchParams.power" class="slider-blue  ml-5 mr-5"
+
+        <div>
+          <Slider :tooltips="false" v-model="sliderPower" class="slider-blue  ml-5 mr-5"
             :step="10" :min="params.power[0]" :max="params.power[1]" :lazy="false" />
-        </div> -->
+        </div>
+
         <div class="flex">
           <input   v-model="searchParams.power[0]" :placeholder="params.power[0]"
             class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  "
@@ -70,10 +73,10 @@
       <form class="w-72 inline-block mr-2">
         <label class="block mb-2 text-sm font-medium text-gray-900">Цена:</label>
 
-        <!-- <div>
-          <Slider :step="100000" :tooltips="false" v-model="sliderPrice" @input="ffSliderPrice()"
-            class="slider-blue ml-5 mr-5" :min="2000000" :max="12000000" :lazy="false" />
-        </div> -->
+        <div>
+          <Slider :step="100000" :tooltips="false" v-model="sliderPrice" 
+            class="slider-blue ml-5 mr-5" :min="params.price[0]" :max="params.price[1]" :lazy="false" />
+        </div>
 
         <div class="flex">
           <input v-model="searchParams.price[0]" :placeholder="params.price[0]"
@@ -106,6 +109,7 @@ import axios from 'axios'
 import { useFilters } from '../../../store/filtersStore';
 
 
+
 const params = ref({ brands: {}, bodyCar: [], transmission: [], engine: [], color: [], power: [999, 0], price: [99999999, 0] }) //объекты параметров, доступных для выбора
 async function getproducts() { //наполнение объектов парметрами, доступными для выбора
   const res = await $fetch(`/api/products`, { //запрос количества страниц
@@ -134,16 +138,16 @@ async function getproducts() { //наполнение объектов парм�
       if (params.value.color.includes(item.color) === false) { //пуш объектов только уникальных  цветов
         params.value.color.push(item.color)
       }
-      if (params.value.power[0] > item.power) { //пуш минимальной мощности
+      if (params.value.power[0] > item.power) { //пуш минимальной мощности из машин в базе данных
         params.value.power[0] = item.power
       }
-      if (params.value.power[1] < item.power) { //пуш максимальной мощности
+      if (params.value.power[1] < item.power) { //пуш максимальной мощности из машин в базе данных
         params.value.power[1] = item.power
       }
-      if (params.value.price[0] > item.price) { //пуш минимальной цены
+      if (params.value.price[0] > item.price) { //пуш минимальной цены из машин в базе данных
         params.value.price[0] = item.price
       }
-      if (params.value.price[1] < item.price) { //пуш максимальной цены
+      if (params.value.price[1] < item.price) { //пуш максимальной цены из машин в базе данных
         params.value.price[1] = item.price
       }
     })
@@ -155,22 +159,26 @@ getproducts()
 
 const searchParams = ref({ brand: null, modelCar: null, bodyCar: [], transmission: [], power: ["", ""], engine: [], price: ["", ""], color: []}) //объекты выбранных параметров
 
-const searchString = ref("")
 
-watch(searchParams.value, () => {
-createString()
+
+
+//присвоение значения из слайдера в searchParams
+const sliderPower = ref([0, 999999999]) 
+watch(sliderPower, () => {
+searchParams.value.power = sliderPower.value
 });
+const sliderPrice = ref([0, 999999999])
+watch(sliderPrice, () => {
+searchParams.value.price = sliderPrice.value
+});
+//
 
 
 
-// setTimeout(() => { //фикс бага, когда слайдер берет максимальное значение мощности только с первой страницы
-//   searchParams.value.power = params.value.power
-// }, 500);
 
 
-
-
-function createString(){ //формирование поисковой строки
+const searchString = ref("") //поисковая строка
+watch(searchParams.value, () => { //формирование поисковой строки
   searchString.value = ""
   if(searchParams.value.brand !== null){
     searchString.value = searchString.value + "brand=" + searchParams.value.brand + "&"
@@ -201,10 +209,8 @@ function createString(){ //формирование поисковой стро�
       searchString.value = searchString.value + "color=" + element + "&"
     });
   }
+});
 
-  
-
-}
 
 
 
