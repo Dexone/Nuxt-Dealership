@@ -8,27 +8,29 @@ export default defineNuxtConfig({
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/tailwindcss",
     "@vueuse/nuxt",
-    "nuxt-api-party",
+    "nuxt-api-party"
   ],
   apiParty: {
     endpoints: {
-      Back: {
-        url: "https://dexone.ru",
+      apiCar: {
+        url: "https://dexone.ru"
+        // url: "http://localhost:3000",
         // headers: {
         //   Authorization: `Bearer ${process.env.JSON_PLACEHOLDER_API_TOKEN}`
         // }
-      },
-    },
+      }
+    }
   },
   vite: {
     server: {
       proxy: {
         "/api": {
           target: "https://dexone.ru",
-          changeOrigin: true,
+          // target: "http://localhost:3000",
+          changeOrigin: true
           // rewrite: (path) => path.replace(/^\/api/, ""),
-        },
-      },
-    },
-  },
-});
+        }
+      }
+    }
+  }
+})

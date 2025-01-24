@@ -1,18 +1,15 @@
-import { defineStore } from 'pinia';
-import { useProduct } from './productStore';
+import { defineStore } from "pinia"
 
-export const useUser = defineStore('userStore', {
+export const useUser = defineStore("userStore", {
   state: () => ({ token: "", email: "" }),
   getters: {
     getToken: (state) => state.token,
     getEmail: (state) => state.email
   },
   actions: {
-    async syncFromCartToServer() {
-
-    },
+    async syncFromCartToServer() {}
   },
-  persist:  {
-    storage: persistedState.localStorage,
-  },
-});
+  persist: {
+    storage: persistedState.localStorage
+  }
+})
