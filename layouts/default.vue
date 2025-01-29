@@ -13,12 +13,12 @@
             <img src="../public/car.png" class="h-8" />
             <span
               v-if="page === 1"
-              class="text-blue-700 self-center text-2xl font-semibold whitespace-nowrap"
+              class="max-sm:hidden text-blue-700 self-center text-2xl font-semibold whitespace-nowrap"
               >DEALERSHIP</span
             >
             <span
               v-else
-              class="self-center text-2xl text-gray-700 font-semibold whitespace-nowrap"
+              class="max-sm:hidden self-center text-2xl text-gray-700 font-semibold whitespace-nowrap"
               >DEALERSHIP</span
             >
           </a>
