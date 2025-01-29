@@ -1,16 +1,38 @@
 <template>
-  <div v-if="userStore.email !== '' && userStore.token !== ''">
-    <div class="mt-20">
-      {{ userStore.email }}
+  <!-- accout page -->
+  <div
+    class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+  >
+    <div class="flex justify-end px-4 pt-4"></div>
+    <div class="flex flex-col items-center pb-10">
+      <img
+        class="w-24 h-24 mb-3 rounded-full shadow-lg"
+        src="../../../public/user.png"
+      />
+      <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+        {{ userStore.email.split("@")[0] }}
+      </h5>
+      <span class="text-sm text-gray-500 dark:text-gray-400"
+        >Количество товаров: {{ cartStore.getQuantityCart }}</span
+      >
+      <span class="text-sm text-gray-500 dark:text-gray-400"
+        >Сумма товаров: {{ cartStore.getSumCart }} ₽</span
+      >
+      <div class="flex mt-4 md:mt-6">
+        <a
+          @click="exit"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >Выйти</a
+        >
+        <a
+          class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        >
+          <NuxtLink to="/cart">В корзину</NuxtLink></a
+        >
+      </div>
     </div>
-    <button
-      type="submit"
-      class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4"
-      @click="exit"
-    >
-      Выйти
-    </button>
   </div>
+
   <div
     v-if="userStore.email === '' && userStore.token === ''"
     class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8"
@@ -54,7 +76,6 @@
           </ul>
         </nav>
       </div>
-      <!-- selector -->
 
       <!-- registration -->
       <div v-if="selectorloginreg === false" class="space-y-6">
@@ -93,7 +114,6 @@
           Зарегистрироваться
         </button>
       </div>
-      <!-- registration -->
 
       <!-- enter -->
       <div v-if="selectorloginreg === true" class="space-y-6">
@@ -132,17 +152,19 @@
           Войти
         </button>
       </div>
-      <!-- enter -->
     </div>
   </div>
 </template>
 
 <script setup>
 import { useStorage } from "@vueuse/core"
+import { useCart } from "../store/cartStore"
 import { useUser } from "../store/userStore"
+import { useFavourite } from "../store/favouriteStore"
+const cartStore = useCart()
 const userStore = useUser()
+const favouriteStore = useFavourite()
 
-// const state = useStorage('vue-token', { email: undefined, token: undefined })
 const selectorloginreg = ref(true) // reg or login
 
 const regemail = ref("") // registration

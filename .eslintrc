@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "extends": [
+    "@nuxtjs/eslint-config-typescript",
+    "plugin:prettier/recommended",
+    "plugin:vue/vue3-recommended"
+  ],
+  "rules": {
+    "vue/multi-word-component-names": 0,
+    "vue/no-multiple-template-root": 1,
+    "@typescript-eslint/no-unused-vars": 0,
+    "no-console": 0,
+    "vue/html-indent": 0
+  }
+}
