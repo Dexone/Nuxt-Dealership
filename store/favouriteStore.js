@@ -33,7 +33,7 @@ export const useFavourite = defineStore("favouriteStore", {
           },
           body: {
             email: useUser().email,
-            productId: car.id,
+            productId: car.productId,
             quantity: 1
           }
         })
@@ -61,7 +61,7 @@ export const useFavourite = defineStore("favouriteStore", {
           },
           body: {
             email: useUser().email,
-            productId: car.id
+            productId: car.productId
           }
         })
         await this.getFavourite()

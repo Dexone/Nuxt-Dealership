@@ -38,7 +38,7 @@ export const useCart = defineStore("cartStore", {
           },
           body: {
             email: useUser().email,
-            productId: car.id,
+            productId: car.productId,
             quantity: 1
           }
         })
@@ -65,7 +65,7 @@ export const useCart = defineStore("cartStore", {
           },
           body: {
             email: useUser().email,
-            productId: car.id
+            productId: car.productId
           }
         })
         await this.getCart()
@@ -122,7 +122,7 @@ export const useCart = defineStore("cartStore", {
               Authorization: `${useUser().token}`
             },
             body: {
-              productId: car.id,
+              productId: car.productId,
               email: useUser().email,
               quantity: quantity - 1
             }
@@ -170,7 +170,7 @@ export const useCart = defineStore("cartStore", {
             Authorization: `${useUser().token}`
           },
           body: {
-            productId: car.id,
+            productId: car.productId,
             email: useUser().email,
             quantity: quantity + 1
           }

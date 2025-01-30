@@ -43,7 +43,7 @@ async function getProducts() {
 
   const mainData = data.value.existingProduct.map((item, index) => {
     return {
-      id: data.value.existingProduct[index].productId,
+      productId: data.value.existingProduct[index].productId,
       _id: data.value.existingProduct[index]._id,
       brand: data.value.existingProduct[index].brand,
       modelCar: data.value.existingProduct[index].modelCar,

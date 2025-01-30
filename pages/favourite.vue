@@ -5,9 +5,9 @@
     </a>
   </main>
   <!-- {{ favouriteStore.localFavourite }} -->
-  
-  <div v-if="favouriteStore.localFavourite.length === 0"
-   
+
+  <div
+    v-if="favouriteStore.localFavourite.length === 0"
     class="bg-gray-50 border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 max-w-6xl"
   >
     <div class="font-medium text-lg">В избранном пусто</div>
