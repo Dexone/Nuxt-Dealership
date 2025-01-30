@@ -5,9 +5,9 @@
     </a>
   </main>
   <!-- {{ favouriteStore.localFavourite }} -->
-  <!--
-  <div
-    v-if="Object.keys(favouriteStore.favourite).length === 0"
+  
+  <div v-if="favouriteStore.localFavourite.length === 0"
+   
     class="bg-gray-50 border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 max-w-6xl"
   >
     <div class="font-medium text-lg">В избранном пусто</div>
@@ -18,7 +18,7 @@
       Если в избранном были товары, войдите, чтобы посмотреть список.
     </div>
     <div class="text-gray-500 font-light text-sm">
-      <NuxtLink to="/cars">
+      <NuxtLink to="/">
         <button
           type="button"
           class="bg-blue-100 hover:bg-blue-400 hover:text-blue-900 text-blue-700 font-medium rounded-lg text-sm px-5 py-1.5 mt-3 me-2 mb-2 focus:outline-none"
@@ -27,7 +27,7 @@
         </button>
       </NuxtLink>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script setup>
