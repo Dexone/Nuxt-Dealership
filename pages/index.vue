@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-center mt-20">
-    <a
-      class="m-6 p-8 bg-local bg-gray-500 bg-center bg-no-repeat bg-cover rounded-lg bg-blend-multiply hover:bg-blend-soft-light dark:hover:bg-blend-darken"
+  <div class="justify-center mt-20 max-w-max mx-auto">
+    <div
+      class="m-6 p-8 bg-local bg-gray-500 bg-center bg-no-repeat bg-cover rounded-lg bg-blend-multiply hover:bg-blend-soft-light inline-block"
       style="background-image: url(used2.webp)"
     >
       <p
@@ -30,10 +30,10 @@
           />
         </svg>
       </button>
-    </a>
+    </div>
 
-    <a
-      class="m-6 p-8 bg-local bg-gray-500 bg-center bg-no-repeat bg-cover rounded-lg bg-blend-multiply hover:bg-blend-soft-light dark:hover:bg-blend-darken"
+    <div
+      class="m-6 p-8 bg-local bg-gray-500 bg-center bg-no-repeat bg-cover rounded-lg bg-blend-multiply hover:bg-blend-soft-light inline-block"
       style="background-image: url(new2.avif)"
     >
       <p
@@ -63,7 +63,7 @@
             />
           </svg></button
       ></NuxtLink>
-    </a>
+        </div>
   </div>
 </template>
 

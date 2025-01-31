@@ -18,7 +18,7 @@
         <!-- right bar -->
         <div
           v-if="Object.keys(cartStore.localCart).length > 0"
-          class="bg-gray-50 max-w-sm border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full "
+          class="bg-gray-50 max-w-sm border border-gray-200 rounded-lg shadow p-6 mx-auto mt-5 w-full"
         >
           <div class="font-medium text-lg">Ваша корзина</div>
           <div class="font-light text-sm">
