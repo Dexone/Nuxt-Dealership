@@ -34,18 +34,36 @@ export const useParams = defineStore("paramsStore", {
   },
 
   actions: {
-    async getProducts() {
-      // заполнение параметров, доступных для выбора (availableParams) при загрузке страницы //1
-      const res = await $fetch(`/api/products`, {
-        // запрос количества страниц
-        method: "GET"
-      })
 
-      for (let i = 1; i <= res.meta.last_page; i++) {
-        // получение всех products на всех страницах
-        const res = await $fetch(`/api/products?page=${i}`, {
+    async getProducts() {
+      const route = useRoute()
+      // заполнение параметров, доступных для выбора (availableParams) при загрузке страницы //1
+      let res = null
+      if (route.path.slice(1, 5) === 'cars') { //если запрос поступил из раздела новых машин
+        res = await $fetch(`/api/products`, {
+          // запрос количества страниц
           method: "GET"
         })
+      }
+      if (route.path.slice(1, 5) === 'used') { //если запрос поступил из раздела б/у машин
+        res = await $fetch(`/api/used_products`, {
+          // запрос количества страниц
+          method: "GET"
+        })
+      }
+      for (let i = 1; i <= res.meta.last_page; i++) {
+        // получение всех products на всех страницах
+        let res = null
+        if (route.path.slice(1, 5) === 'cars') { //если запрос поступил из раздела новых машин
+          res = await $fetch(`/api/products?page=${i}`, {
+            method: "GET"
+          })
+        }
+        if (route.path.slice(1, 5) === 'used') { //если запрос поступил из раздела б/у машин
+          res = await $fetch(`/api/used_products?page=${i}`, {
+            method: "GET"
+          })
+        }
         res.existingProduct.map((item, index) => {
           if (
             Object.keys(this.availableParams.brands).includes(item.brand) ===
@@ -100,11 +118,17 @@ export const useParams = defineStore("paramsStore", {
       }
 
       // парсинг поискового запроса из url в selectedParams при загрузке страницы //2
-      const paramsArray = decodeURI(window.location.pathname)
-        .slice(6)
-        .split("&") // массив параметров из url
-      console.log(paramsArray)
-
+      let paramsArray = null
+      if (route.path.slice(1, 5) === 'cars') { //если запрос поступил из раздела новых машин
+        paramsArray = decodeURI(window.location.pathname)
+          .slice(6)
+          .split("&")
+      }
+      if (route.path.slice(1, 5) === 'used') { //если запрос поступил из раздела б/у машин
+        paramsArray = decodeURI(window.location.pathname)
+          .slice(11)
+          .split("&") // массив параметров из url
+      }
       for (let i = 0; i < paramsArray.length; i++) {
         await new Promise((res) => setTimeout(res, 100)) // fix не успевают заполняться фильтры
         if (paramsArray[i].split("=")[0] === "brand") {
@@ -133,6 +157,7 @@ export const useParams = defineStore("paramsStore", {
     },
 
     createSearchString() {
+
       // формирование поисковой строки из selectedparams, отправка ее в url и редирект по нажатию кнопки
       this.searchString = ""
       if (this.selectedParams.brand !== null) {
@@ -170,7 +195,15 @@ export const useParams = defineStore("paramsStore", {
       this.searchString =
         this.searchString + "page=" + this.selectedParams.page + "&"
 
-      window.location.href = `/cars/${this.searchString}` // редирект
+
+        const route = useRoute()
+
+      if (route.path.slice(1, 5) === 'cars') { //если запрос поступил из раздела новых машин
+        window.location.href = `/cars/${this.searchString}` // редирект
+      }
+      if (route.path.slice(1, 5) === 'used') { //если запрос поступил из раздела б/у машин
+        window.location.href = `/used_cars/${this.searchString}` // редирект
+      }
     }
   }
 

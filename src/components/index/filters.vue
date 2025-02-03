@@ -65,7 +65,7 @@
         class="multiselect-blue"
       />
     </div>
-
+<a v-if="hiddenFilters">
     <form class="w-72 mt-2 mr-2 inline-block">
       <label class="block mb-2 text-sm font-medium text-gray-900"
         >Мощность двигателя:</label
@@ -160,7 +160,13 @@
       />
     </div>
   </a>
-  <button @click="paramsStore.createSearchString">Найти</button>
+    <button @click="paramsStore.createSearchString" class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none ">Найти</button>
+    <button @click="hiddenFilters = !hiddenFilters" class="text-gray-900 bg-gray-200 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
+      Расширенный поиск
+</button>
+  </a>
+  
+
 </template>
 
 <script setup>
@@ -187,6 +193,8 @@ watch(sliderPrice, () => {
 import Multiselect from "@vueform/multiselect"
 import Slider from "@vueform/slider"
 import src from "@vueform/multiselect"
+
+const hiddenFilters = ref(false)
 
 // watch(paramsStore.selectedParams, () => { //формирование поисковой строки
 // paramsStore.createSearchString()

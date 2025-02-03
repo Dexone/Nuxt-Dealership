@@ -9,7 +9,8 @@
       >
         Подержанные авто с пробегом
       </p>
-      <button
+      <NuxtLink to="/used_cars/page=1"
+      > <button
         type="button"
         class="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-center text-white border border-white rounded-lg hover:bg-white hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-700"
       >
@@ -30,6 +31,7 @@
           />
         </svg>
       </button>
+      </NuxtLink>
     </div>
 
     <div
@@ -63,7 +65,7 @@
             />
           </svg></button
       ></NuxtLink>
-        </div>
+    </div>
   </div>
 </template>
 

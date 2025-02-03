@@ -1,29 +1,29 @@
 <template>
   <main class="bg-white max-w-7xl mx-auto">
-    <!-- <div class="max-w-7xl mx-auto mb-3">
+    <div class="max-w-7xl mx-auto mb-3">
       <Filters />
-    </div> -->
+    </div>
 
     <template v-if="mainInfo?.length > 0">
       <div
         v-for="main in mainInfo"
         class="max-w-sm bg-white border border-gray-200 rounded-lg shadow inline-block m-5"
       >
-        <CardProductUsed :car="main" />
+        <CardProduct :car="main" />
       </div>
     </template>
 
-    <!-- <Pagiation /> -->
+    <Pagiation />
   </main>
 </template>
 
 <script setup>
 import { ref } from "vue"
-import { useParamsUsed } from "@/store/paramsStoreUsed"
+import { useParams } from "@/store/paramsStore"
 import Filters from "@/src/components/index/filters.vue"
 import Pagiation from "@/src/components/index/pagination.vue"
-import CardProductUsed from "@/src/components/index/CardProductUsed.vue"
-const paramsStoreUsed = useParamsUsed()
+import CardProduct from "@/src/components/index/CardProduct.vue"
+const paramsStore = useParams()
 const route = useRoute()
 
 const mainInfo = ref(null)
@@ -34,11 +34,11 @@ async function getProducts() {
     `api/used_products?${route.params.searchString}`
   )
   try {
-    paramsStoreUsed.availableParams.pages = data.value.meta.last_page // пуш количества доступных страниц после применения фильров
+    paramsStore.availableParams.pages = data.value.meta.last_page // пуш количества доступных страниц после применения фильров
   } catch (e) {
     // если ошибка (количество страниц меньше, чем выбранная страница) переброс на 1 page
-    paramsStoreUsed.selectedParams.page = 1
-    paramsStoreUsed.createSearchString()
+    paramsStore.selectedParams.page = 1
+    paramsStore.createSearchString()
   }
 
   const mainData = data.value.existingProduct.map((item, index) => {

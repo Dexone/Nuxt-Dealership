@@ -41,7 +41,13 @@ export const useFavourite = defineStore("favouriteStore", {
       }
       if (useUser().token.length === 0) {
         // если пользователь не авторизован
-        const a = await $fetch(`/api/product/${car._id}`, {})
+        let a = null
+        if(car.image[1].slice(car.image[1].length - 11) === 'used/1.webp'){ 
+       a = await $fetch(`/api/used_product/${car._id}`, {})
+        }
+       else {
+          a = await $fetch(`/api/product/${car._id}`, {})
+           }
         this.localFavourite.push({ product: a.data, quantity: 1 })
       }
       $toast.success("Добавлено в избранное", {
