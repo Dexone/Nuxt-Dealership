@@ -5,7 +5,7 @@
         <h5 class="ml-8 text-2xl font-medium text-gray-900">
           {{ product.data.brand }} {{ product.data.modelCar }}
         </h5>
-        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+        <div class="relative h-56 overflow-hidden rounded-lg md:h-96 mt-4">
           <div class="duration-700 ease-in-out">
             <img
               :src="product.data.image[0][imageCount]"

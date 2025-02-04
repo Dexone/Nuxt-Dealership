@@ -48,12 +48,12 @@ export const useCart = defineStore("cartStore", {
       if (useUser().token.length === 0) {
         // если пользователь не авторизован
         let a = null
-        if(car.image[1].slice(car.image[1].length - 11) === 'used/1.webp'){  //если запрос б/у авто
-       a = await $fetch(`/api/used_product/${car._id}`, {})
-        }
-       else {
+        if (car.image[1].slice(car.image[1].length - 11) === "used/1.webp") {
+          //если запрос б/у авто
+          a = await $fetch(`/api/used_product/${car._id}`, {})
+        } else {
           a = await $fetch(`/api/product/${car._id}`, {}) //если запрос нового авто
-           }
+        }
         this.localCart.push({ product: a.data, quantity: 1 })
       }
       $toast.success("Добавлено в корзину", {

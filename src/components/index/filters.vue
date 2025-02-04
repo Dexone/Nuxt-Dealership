@@ -65,107 +65,116 @@
         class="multiselect-blue"
       />
     </div>
-<a v-if="hiddenFilters">
-    <form class="w-72 mt-2 mr-2 inline-block">
-      <label class="block mb-2 text-sm font-medium text-gray-900"
-        >Мощность двигателя:</label
-      >
+    <a v-if="hiddenFilters">
+      <form class="w-72 mt-2 mr-2 inline-block">
+        <label class="block mb-2 text-sm font-medium text-gray-900"
+          >Мощность двигателя:</label
+        >
 
-      <div>
-        <Slider
-          v-model="sliderPower"
-          :tooltips="false"
-          class="slider-blue ml-5 mr-5"
-          :step="1"
-          :min="0"
-          :max="paramsStore.availableParams.power[1]"
-          :lazy="false"
+        <div>
+          <Slider
+            v-model="sliderPower"
+            :tooltips="false"
+            class="slider-blue ml-5 mr-5"
+            :step="1"
+            :min="0"
+            :max="paramsStore.availableParams.power[1]"
+            :lazy="false"
+          />
+        </div>
+
+        <div class="flex">
+          <input
+            v-model="paramsStore.selectedParams.power[0]"
+            :placeholder="paramsStore.availableParams.power[0]"
+            class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
+            placeholder="Цена от"
+          />
+          <input
+            v-model="paramsStore.selectedParams.power[1]"
+            :placeholder="paramsStore.availableParams.power[1]"
+            class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
+            placeholder="Цена до"
+          />
+        </div>
+      </form>
+
+      <div class="min-w-72 mt-2 mr-2 inline-block">
+        <label
+          for="countries"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Двигатель:</label
+        >
+        <Multiselect
+          v-model="paramsStore.selectedParams.engine"
+          :options="paramsStore.availableParams.engine"
+          placeholder="Любой"
+          mode="tags"
+          class="multiselect-blue"
         />
       </div>
 
-      <div class="flex">
-        <input
-          v-model="paramsStore.selectedParams.power[0]"
-          :placeholder="paramsStore.availableParams.power[0]"
-          class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
-          placeholder="Цена от"
-        />
-        <input
-          v-model="paramsStore.selectedParams.power[1]"
-          :placeholder="paramsStore.availableParams.power[1]"
-          class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
-          placeholder="Цена до"
-        />
-      </div>
-    </form>
+      <form class="w-72 inline-block mr-2">
+        <label class="block mb-2 text-sm font-medium text-gray-900"
+          >Цена:</label
+        >
 
-    <div class="min-w-72 mt-2 mr-2 inline-block">
-      <label
-        for="countries"
-        class="block mb-2 text-sm font-medium text-gray-900"
-        >Двигатель:</label
-      >
-      <Multiselect
-        v-model="paramsStore.selectedParams.engine"
-        :options="paramsStore.availableParams.engine"
-        placeholder="Любой"
-        mode="tags"
-        class="multiselect-blue"
-      />
-    </div>
+        <div>
+          <Slider
+            v-model="sliderPrice"
+            :step="1"
+            :tooltips="false"
+            class="slider-blue ml-5 mr-5"
+            :min="0"
+            :max="paramsStore.availableParams.price[1]"
+            :lazy="false"
+          />
+        </div>
 
-    <form class="w-72 inline-block mr-2">
-      <label class="block mb-2 text-sm font-medium text-gray-900">Цена:</label>
+        <div class="flex">
+          <input
+            v-model="paramsStore.selectedParams.price[0]"
+            :placeholder="paramsStore.availableParams.price[0]"
+            class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
+            placeholder="Цена от"
+          />
+          <input
+            v-model="paramsStore.selectedParams.price[1]"
+            :placeholder="paramsStore.availableParams.price[1]"
+            class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
+            placeholder="Цена до"
+          />
+        </div>
+      </form>
 
-      <div>
-        <Slider
-          v-model="sliderPrice"
-          :step="1"
-          :tooltips="false"
-          class="slider-blue ml-5 mr-5"
-          :min="0"
-          :max="paramsStore.availableParams.price[1]"
-          :lazy="false"
-        />
-      </div>
-
-      <div class="flex">
-        <input
-          v-model="paramsStore.selectedParams.price[0]"
-          :placeholder="paramsStore.availableParams.price[0]"
-          class="rounded-none rounded-s-md bg-gray-0 border border-e-0 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
-          placeholder="Цена от"
-        />
-        <input
-          v-model="paramsStore.selectedParams.price[1]"
-          :placeholder="paramsStore.availableParams.price[1]"
-          class="rounded-none rounded-e-lg bg-gray-0 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5"
-          placeholder="Цена до"
+      <div class="min-w-72 mt-2 mr-2 inline-block">
+        <label
+          for="countries"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Цвет:</label
+        >
+        <Multiselect
+          v-model="paramsStore.selectedParams.color"
+          :options="paramsStore.availableParams.color"
+          placeholder="Любой"
+          mode="tags"
+          class="multiselect-blue"
         />
       </div>
-    </form>
-
-    <div class="min-w-72 mt-2 mr-2 inline-block">
-      <label
-        for="countries"
-        class="block mb-2 text-sm font-medium text-gray-900"
-        >Цвет:</label
-      >
-      <Multiselect
-        v-model="paramsStore.selectedParams.color"
-        :options="paramsStore.availableParams.color"
-        placeholder="Любой"
-        mode="tags"
-        class="multiselect-blue"
-      />
-    </div>
-  </a>
-    <button @click="paramsStore.createSearchString" class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none ">Найти</button>
-    <button @click="hiddenFilters = !hiddenFilters" class="text-gray-900 bg-gray-200 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
+    </a>
+    <button
+      @click="paramsStore.createSearchString"
+      class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
+    >
+      Найти
+    </button>
+    <button
+      @click="hiddenFilters = !hiddenFilters"
+      class="text-gray-900 bg-gray-200 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2"
+    >
       Расширенный поиск
-</button>
+    </button>
   </a>
-  
 
 </template>
 
