@@ -4,10 +4,19 @@
       <Filters />
     </div>
     <template v-if="mainInfo?.length > 0">
-      <div v-for="main in mainInfo" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow inline-block m-5">
-        <CardProduct :car="main"
-          v-if="main.price >= paramsStore.selectedParams.price[0] && main.price <= paramsStore.selectedParams.price[1] && main.power >= paramsStore.selectedParams.power[0] && main.power <= paramsStore.selectedParams.power[1]" />
-
+      <div
+        v-for="main in mainInfo"
+        class="max-w-sm bg-white border border-gray-200 rounded-lg shadow inline-block m-5"
+      >
+        <CardProduct
+          :car="main"
+          v-if="
+            main.price >= paramsStore.selectedParams.price[0] &&
+            main.price <= paramsStore.selectedParams.price[1] &&
+            main.power >= paramsStore.selectedParams.power[0] &&
+            main.power <= paramsStore.selectedParams.power[1]
+          "
+        />
       </div>
 
       <!-- {{ paramsStore.selectedParams.power }}

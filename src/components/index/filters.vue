@@ -175,7 +175,6 @@
       Расширенный поиск
     </button>
   </a>
-
 </template>
 
 <script setup>

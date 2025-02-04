@@ -1,37 +1,8 @@
 <template>
-
-
-
-<NuxtLink v-if="car.image[1].slice(car.image[1].length - 11) === 'used/1.webp'" :to="`/used_product/${car._id}`">
-  <h5 class="mb-1 text-xl font-medium text-gray-900 ml-4 pt-4">
-      {{ car.brand }} {{ car.modelCar }}
-    </h5>
-    <p class="text-sm text-gray-500 ml-4 mr-4 h-10">
-      {{ car.year }}г. / {{ car.power }}л.с. / {{ car.engine }} /
-      {{ car.transmission }} / {{ car.bodyCar }} / {{ car.color }}
-    </p>
-
-    <div
-      
-      class="flex flex-col items-center h-44 mt-2 mb-2 mx-4"
-    >
-      <img class="rounded-lg object-cover size-full" :src="car.image[1]" />
-    </div>
-
-   
-
-    <h5 class="mb-1 text-xl font-medium text-gray-900 ml-4">
-      {{ car.price.toLocaleString() }} ₽
-    </h5>
-    <span class="text-sm text-gray-500 ml-4">
-      {{ Math.round(car.price / 84).toLocaleString() }} ₽/мес</span
-    >
-</NuxtLink>
-
-
-
-
-<NuxtLink v-else :to="`/product/${car._id}`">
+  <NuxtLink
+    v-if="car.image[1].slice(car.image[1].length - 11) === 'used/1.webp'"
+    :to="`/used_product/${car._id}`"
+  >
     <h5 class="mb-1 text-xl font-medium text-gray-900 ml-4 pt-4">
       {{ car.brand }} {{ car.modelCar }}
     </h5>
@@ -40,8 +11,8 @@
       {{ car.transmission }} / {{ car.bodyCar }} / {{ car.color }}
     </p>
 
-    <div  class="flex flex-col items-center h-48">
-      <img class="rounded-t-lg" :src="car.image[1]" />
+    <div class="flex flex-col items-center h-44 mt-2 mb-2 mx-4">
+      <img class="rounded-lg object-cover size-full" :src="car.image[1]" />
     </div>
 
     <h5 class="mb-1 text-xl font-medium text-gray-900 ml-4">
@@ -52,8 +23,26 @@
     >
   </NuxtLink>
 
+  <NuxtLink v-else :to="`/product/${car._id}`">
+    <h5 class="mb-1 text-xl font-medium text-gray-900 ml-4 pt-4">
+      {{ car.brand }} {{ car.modelCar }}
+    </h5>
+    <p class="text-sm text-gray-500 ml-4 mr-4 h-10">
+      {{ car.year }}г. / {{ car.power }}л.с. / {{ car.engine }} /
+      {{ car.transmission }} / {{ car.bodyCar }} / {{ car.color }}
+    </p>
 
+    <div class="flex flex-col items-center h-48">
+      <img class="rounded-t-lg" :src="car.image[1]" />
+    </div>
 
+    <h5 class="mb-1 text-xl font-medium text-gray-900 ml-4">
+      {{ car.price.toLocaleString() }} ₽
+    </h5>
+    <span class="text-sm text-gray-500 ml-4">
+      {{ Math.round(car.price / 84).toLocaleString() }} ₽/мес</span
+    >
+  </NuxtLink>
 
   <!-- кн-и корзины и избранного -->
   <div class="mx-auto max-w-fit flex mt-5 mb-5">
