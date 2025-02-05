@@ -10,7 +10,7 @@
             class="flex items-center space-x-3 rtl:space-x-reverse"
             @click="page = 1"
           >
-            <img src="../public/car.png" class="h-8" />
+            <img src="../public/logo_deal.svg" class="h-8 mt-2" />
             <span
               v-if="page === 1"
               class="max-sm:hidden text-blue-700 self-center text-2xl font-semibold whitespace-nowrap"
