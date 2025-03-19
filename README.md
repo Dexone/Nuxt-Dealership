@@ -1,5 +1,5 @@
 
-
+Перенесено в архив. Демо отключено.
 
 
 
@@ -13,7 +13,7 @@
 
 
 
- <p align="center">
+ <!-- <p align="center">
 
   <img height="300"  src="./mockups/iphone.png"/>
 
@@ -72,7 +72,7 @@
 
 <a href="https://t.me/mrtynnvv"><img src="https://img.shields.io/badge/Telegram-2CA5E0?logo=telegram&logoColor=white" /></a>
 
-<!-- ## 📸 Скриншоты
+ ## 📸 Скриншоты
 
  <p align="center">
 <a href="https://calorielly.ru/">
@@ -82,10 +82,10 @@
    <a  href="https://calorielly.ru">
   <img height="300"  src="./mockups/mac.png"/>
   </a> 
-</p> -->
+</p>
 
  ## 📝 Licence
 
 Copyright © 2025 [Dima Martynov](https://github.com/dexone).<br />
 Этот проект находится под лицензией [MIT](https://github.com/Dexone/Nuxt-Dealership/blob/main/LICENSE).<br />
-_Использованные изображения принадлежат [icons8](https://icons8.ru/)._ 
+_Использованные изображения принадлежат [icons8](https://icons8.ru/)._ -->
